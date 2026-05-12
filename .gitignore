@@ -1,0 +1,10 @@
+data/raw/
+data/processed/
+__pycache__/
+*.pyc
+*.ckpt
+*.pt
+.env
+CLAUDE.md
+.venv/
+.ipynb_checkpoints/
