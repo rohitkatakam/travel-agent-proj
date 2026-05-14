@@ -1,1 +1,241 @@
 id,city,name,cuisine,price_range,rating
+RS0001,New York,Katz's Deli,American,$$$$,4.0
+RS0002,New York,Nobu NYC,Japanese,$$,3.6
+RS0003,New York,Le Bernardin,French,$,4.6
+RS0004,New York,Grimaldi's,Italian,$$,4.8
+RS0005,New York,Xi'an Famous Foods,Chinese,$$,3.3
+RS0006,New York,Shake Shack,American,$,4.1
+RS0007,New York,Peter Luger Steak,American,$$$$,3.3
+RS0008,New York,Ivan Ramen,Japanese,$$$$,4.4
+RS0009,New York,Taïm,Mediterranean,$$$,4.4
+RS0010,New York,Juliana's Pizza,Italian,$$,5.0
+RS0011,New York,Balthazar,French,$$,4.8
+RS0012,New York,Momofuku Noodle Bar,Asian,$,4.5
+RS0013,New York,Keens Steakhouse,American,$$,4.8
+RS0014,New York,Sylvia's Restaurant,Soul Food,$$$$,3.8
+RS0015,New York,Di Fara Pizza,Italian,$$,4.5
+RS0016,New York,Marea,Italian,$$$,4.9
+RS0017,New York,Sushi Nakazawa,Japanese,$$,3.9
+RS0018,New York,The Halal Guys,Middle Eastern,$,4.9
+RS0019,New York,Russ & Daughters,Jewish Deli,$$$,4.8
+RS0020,New York,Sammy's Roumanian,Romanian,$,4.8
+RS0021,Los Angeles,In-N-Out Burger,American,$,3.4
+RS0022,Los Angeles,Nobu Malibu,Japanese,$$$,4.4
+RS0023,Los Angeles,Republique,French,$$,3.2
+RS0024,Los Angeles,Osteria Mozza,Italian,$$,4.9
+RS0025,Los Angeles,Cassia,Southeast Asian,$$$,3.6
+RS0026,Los Angeles,Gjusta,Bakery,$,3.7
+RS0027,Los Angeles,Bestia,Italian,$$$$,3.0
+RS0028,Los Angeles,Guelaguetza,Mexican,$$$$,5.0
+RS0029,Los Angeles,Night + Market,Thai,$$$,4.7
+RS0030,Los Angeles,Perle,American,$$,4.0
+RS0031,Los Angeles,Dialogue,American,$,4.0
+RS0032,Los Angeles,Taco Maria,Mexican,$$,3.1
+RS0033,Los Angeles,Pizzeria Mozza,Italian,$$,4.4
+RS0034,Los Angeles,Howlin' Ray's,Southern,$$$,3.9
+RS0035,Los Angeles,Yxta Cocina,Mexican,$$$$,3.7
+RS0036,Los Angeles,Bavel,Middle Eastern,$$$,4.5
+RS0037,Los Angeles,Kismet,Mediterranean,$$$$,4.3
+RS0038,Los Angeles,Sqirl,Californian,$$$,4.1
+RS0039,Los Angeles,Jon & Vinny's,Italian,$$,4.7
+RS0040,Los Angeles,Sushi Zo,Japanese,$,4.5
+RS0041,Chicago,Alinea,American,$,3.6
+RS0042,Chicago,Girl & The Goat,American,$$,4.8
+RS0043,Chicago,Lou Malnati's,Pizza,$$$$,3.8
+RS0044,Chicago,Portillo's,American,$$$,4.4
+RS0045,Chicago,Au Cheval,American,$$$,3.7
+RS0046,Chicago,Smyth,American,$$$$,3.8
+RS0047,Chicago,Avec,Mediterranean,$$$,3.3
+RS0048,Chicago,Big Jones,Southern,$$$,4.4
+RS0049,Chicago,Publican,American,$$,4.0
+RS0050,Chicago,Lula Cafe,American,$$$,3.2
+RS0051,Chicago,Monteverde,Italian,$$$$,4.8
+RS0052,Chicago,The Purple Pig,Mediterranean,$,4.6
+RS0053,Chicago,Frontera Grill,Mexican,$$$,4.7
+RS0054,Chicago,Japonais,Japanese,$,3.0
+RS0055,Chicago,RPM Italian,Italian,$$,4.6
+RS0056,Chicago,Kasama,Filipino,$,3.5
+RS0057,Chicago,Duck Duck Goat,Chinese,$$,3.7
+RS0058,Chicago,Topolobampo,Mexican,$$,4.1
+RS0059,Chicago,Chicago Chop House,American,$$,4.6
+RS0060,Chicago,MingHin Cuisine,Chinese,$,3.0
+RS0061,Miami,Joe's Stone Crab,Seafood,$,4.5
+RS0062,Miami,Versailles Restaurant,Cuban,$$$,4.7
+RS0063,Miami,KYU Miami,Asian BBQ,$,3.3
+RS0064,Miami,Zuma Miami,Japanese,$$$$,4.3
+RS0065,Miami,Coya Miami,Peruvian,$$$,4.6
+RS0066,Miami,Los Fuegos,Argentine,$,4.2
+RS0067,Miami,Michael's Genuine,American,$,4.4
+RS0068,Miami,Mandolin Aegean,Greek,$$,4.8
+RS0069,Miami,Stubborn Seed,American,$,3.4
+RS0070,Miami,Fooq's,American,$,3.0
+RS0071,Miami,Chotto Matte,Japanese/Peruvian,$$,3.4
+RS0072,Miami,La Mar,Peruvian,$,3.8
+RS0073,Miami,Coyo Taco,Mexican,$$,4.0
+RS0074,Miami,Pubbelly Sushi,Japanese,$$,4.4
+RS0075,Miami,Phuc Yea,Vietnamese,$$$$,4.2
+RS0076,Miami,The Surf Club Restaurant,Seafood,$$,3.9
+RS0077,Miami,Swan,American,$,3.9
+RS0078,Miami,Cervantes Signature,Cuban,$,3.2
+RS0079,Miami,Ariete,American,$$,3.5
+RS0080,Miami,DIRT,Vegetarian,$$,4.4
+RS0081,San Francisco,Tartine Manufactory,Bakery,$,3.4
+RS0082,San Francisco,Zuni Cafe,American,$$$,4.5
+RS0083,San Francisco,Lazy Bear,American,$$,3.3
+RS0084,San Francisco,State Bird Provisions,American,$$$,4.2
+RS0085,San Francisco,Rich Table,American,$$$,3.4
+RS0086,San Francisco,Nopa,American,$$$,4.6
+RS0087,San Francisco,Burma Superstar,Burmese,$$,4.1
+RS0088,San Francisco,Cotogna,Italian,$$$,3.6
+RS0089,San Francisco,Quince,Italian,$$,3.1
+RS0090,San Francisco,Benu,Korean/American,$,4.0
+RS0091,San Francisco,Atelier Crenn,French,$,4.2
+RS0092,San Francisco,The Progress,American,$$$$,3.2
+RS0093,San Francisco,Liholiho Yacht Club,Hawaiian,$$$$,3.0
+RS0094,San Francisco,Sorrel,American,$,3.6
+RS0095,San Francisco,Saison,American,$$$,4.4
+RS0096,San Francisco,Dosa,Indian,$,4.1
+RS0097,San Francisco,Aziza,Moroccan,$$$,3.9
+RS0098,San Francisco,Kin Khao,Thai,$$$$,3.7
+RS0099,San Francisco,Z & Y Restaurant,Chinese,$$$,4.5
+RS0100,San Francisco,Flour + Water,Italian,$$$,4.1
+RS0101,Las Vegas,Joel Robuchon,French,$$,3.5
+RS0102,Las Vegas,Joël Robuchon Restaurant,French,$$,3.1
+RS0103,Las Vegas,é by José Andrés,Spanish,$$$,3.8
+RS0104,Las Vegas,CUT by Wolfgang Puck,Steakhouse,$$$$,3.6
+RS0105,Las Vegas,Momofuku,Asian,$$$$,3.9
+RS0106,Las Vegas,Carbone,Italian,$$$$,3.9
+RS0107,Las Vegas,Nobu Las Vegas,Japanese,$$,4.5
+RS0108,Las Vegas,Bouchon,French,$$$$,3.8
+RS0109,Las Vegas,Herb N Kitchen,American,$,4.7
+RS0110,Las Vegas,Wicked Spoon,Buffet,$$$,3.8
+RS0111,Las Vegas,Yardbird,Southern,$$,3.8
+RS0112,Las Vegas,Gordon Ramsay Hell's Kitchen,American,$,3.9
+RS0113,Las Vegas,Secret Pizza,Pizza,$$,3.3
+RS0114,Las Vegas,In-N-Out Burger,American,$$,3.4
+RS0115,Las Vegas,Rao's Las Vegas,Italian,$,3.8
+RS0116,Las Vegas,Bavette's,Steakhouse,$$,3.5
+RS0117,Las Vegas,Osteria Fiorella,Italian,$$,3.0
+RS0118,Las Vegas,Lotus of Siam,Thai,$$$$,3.3
+RS0119,Las Vegas,Esther's Kitchen,Italian,$$$,3.5
+RS0120,Las Vegas,Carson Kitchen,American,$$$$,4.2
+RS0121,Seattle,Canlis,American,$$$$,3.9
+RS0122,Seattle,Nue,International,$$,4.0
+RS0123,Seattle,Bateau,Steakhouse,$,3.7
+RS0124,Seattle,The Walrus and the Carpenter,Seafood,$,3.1
+RS0125,Seattle,Altura,Italian,$$$,4.4
+RS0126,Seattle,How to Cook a Wolf,Italian,$$$,3.3
+RS0127,Seattle,Din Tai Fung,Chinese,$$$$,4.6
+RS0128,Seattle,Spinasse,Italian,$$$$,4.0
+RS0129,Seattle,Sitka & Spruce,American,$$$,4.3
+RS0130,Seattle,Sushi Kashiba,Japanese,$$$,4.3
+RS0131,Seattle,Taylor Shellfish Farms,Seafood,$$$$,4.2
+RS0132,Seattle,Le Pichet,French,$$,4.1
+RS0133,Seattle,Poppy,American,$$$,4.4
+RS0134,Seattle,Taneda,Japanese,$$,3.7
+RS0135,Seattle,Harvest Vine,Spanish,$$$$,3.1
+RS0136,Seattle,Marjorie,American,$$$$,3.7
+RS0137,Seattle,Toulouse Petit,Cajun,$$,3.4
+RS0138,Seattle,Matt's in the Market,Seafood,$$$,4.4
+RS0139,Seattle,Wild Ginger,Asian,$$$,4.3
+RS0140,Seattle,Serious Pie,Pizza,$$$$,4.6
+RS0141,Boston,Neptune Oyster,Seafood,$$$,4.2
+RS0142,Boston,Oleana,Mediterranean,$$$,4.4
+RS0143,Boston,Menton,French/Italian,$$,4.9
+RS0144,Boston,Island Creek Oyster Bar,Seafood,$$,4.4
+RS0145,Boston,Myers + Chang,Asian,$$,4.6
+RS0146,Boston,Tasting Counter,American,$$,4.0
+RS0147,Boston,Ostra,Seafood,$$$$,4.8
+RS0148,Boston,Row 34,Seafood,$$$,4.0
+RS0149,Boston,Tiger Mama,Southeast Asian,$,3.8
+RS0150,Boston,Giulia,Italian,$$,4.2
+RS0151,Boston,The Salty Pig,American,$,4.1
+RS0152,Boston,Toro,Spanish,$$$$,4.2
+RS0153,Boston,Coppa,Italian,$$$,3.1
+RS0154,Boston,Waypoint,American,$$$$,4.6
+RS0155,Boston,Central Kitchen,American,$$$,4.4
+RS0156,Boston,Sarma,Middle Eastern,$$$,4.7
+RS0157,Boston,Sweet Cheeks Q,BBQ,$,3.9
+RS0158,Boston,Clio,French,$$,4.3
+RS0159,Boston,Deuxave,French,$$$,3.7
+RS0160,Boston,Harvest,American,$$$$,4.1
+RS0161,New Orleans,Commander's Palace,Creole,$$$,4.9
+RS0162,New Orleans,Dooky Chase's,Soul Food/Creole,$$$$,5.0
+RS0163,New Orleans,Galatoire's,French Creole,$$,4.6
+RS0164,New Orleans,Antoine's,French Creole,$$,4.9
+RS0165,New Orleans,Cochon,Cajun,$,3.6
+RS0166,New Orleans,August,American,$,4.5
+RS0167,New Orleans,Cafe Du Monde,Cafe,$$,4.0
+RS0168,New Orleans,Acme Oyster House,Seafood,$$$,3.5
+RS0169,New Orleans,Peche Seafood Grill,Seafood,$$$$,3.8
+RS0170,New Orleans,Coquette,American,$,3.6
+RS0171,New Orleans,Compère Lapin,Caribbean,$$,3.3
+RS0172,New Orleans,MoPho,Vietnamese,$,3.1
+RS0173,New Orleans,Shaya,Israeli,$$$$,3.2
+RS0174,New Orleans,Willa Jean,American,$$$$,4.6
+RS0175,New Orleans,Costera,Mexican/American,$$,3.9
+RS0176,New Orleans,Johnny's Po-Boys,Cajun,$$$$,4.1
+RS0177,New Orleans,Domilise's Po-Boys,Cajun,$$$$,4.5
+RS0178,New Orleans,Turkey and the Wolf,American,$,4.9
+RS0179,New Orleans,High Hat Cafe,American,$$$$,3.6
+RS0180,New Orleans,Lilette,French,$$$$,3.6
+RS0181,Denver,Rioja,Mediterranean,$$,3.6
+RS0182,Denver,Acorn,American,$,3.2
+RS0183,Denver,Guard and Grace,Steakhouse,$$$,4.1
+RS0184,Denver,Work & Class,American,$$$,3.3
+RS0185,Denver,Mercantile,American,$$$$,4.1
+RS0186,Denver,Beast + Bottle,American,$$$$,4.3
+RS0187,Denver,Sushi Den,Japanese,$$$$,3.4
+RS0188,Denver,Potager,American,$,4.3
+RS0189,Denver,Root Down,American,$$$,4.1
+RS0190,Denver,Leven Deli,Jewish Deli,$,4.8
+RS0191,Denver,Mizuna,American,$,4.4
+RS0192,Denver,Jax Fish House,Seafood,$$,4.0
+RS0193,Denver,Fruition,American,$,3.3
+RS0194,Denver,El Five,Mediterranean,$,4.0
+RS0195,Denver,Tavernetta,Italian,$$,3.2
+RS0196,Denver,Linger,International,$$$,4.9
+RS0197,Denver,ViewHouse,American,$$$,3.2
+RS0198,Denver,Hop Alley,Chinese,$$$,4.5
+RS0199,Denver,Williams & Graham,American,$$$$,3.8
+RS0200,Denver,Brider,American,$,4.0
+RS0201,Austin,Franklin Barbecue,BBQ,$$$$,4.4
+RS0202,Austin,Uchi,Japanese,$,4.6
+RS0203,Austin,Odd Duck,American,$$$$,3.3
+RS0204,Austin,Sour Duck Market,American,$$$,3.5
+RS0205,Austin,La Barbecue,BBQ,$,4.3
+RS0206,Austin,Launderette,American,$,3.1
+RS0207,Austin,Lenoir,American,$$,4.0
+RS0208,Austin,Ramen Tatsu-ya,Japanese,$,3.4
+RS0209,Austin,Barley Swine,American,$$,4.9
+RS0210,Austin,1886 Cafe & Bakery,American,$$,4.0
+RS0211,Austin,Qui,American,$$$,3.8
+RS0212,Austin,Justine's Brasserie,French,$$$$,3.0
+RS0213,Austin,Uchiko,Japanese,$$$,4.0
+RS0214,Austin,Salt & Time,American,$$$$,4.1
+RS0215,Austin,Emmer & Rye,American,$,3.4
+RS0216,Austin,Juniper,American,$,3.4
+RS0217,Austin,Loro,Asian BBQ,$$$$,3.0
+RS0218,Austin,Vera Cruz All Natural,Mexican,$,4.2
+RS0219,Austin,Valentina's Tex Mex BBQ,Tex-Mex,$$$,4.0
+RS0220,Austin,Fresa's,Mexican,$$,3.8
+RS0221,Nashville,Prince's Hot Chicken,Southern,$$,4.1
+RS0222,Nashville,The Catbird Seat,American,$$$,3.5
+RS0223,Nashville,Rolf and Daughters,Italian,$$$,4.0
+RS0224,Nashville,Husk Nashville,Southern,$$,4.7
+RS0225,Nashville,Arnold's Country Kitchen,Southern,$$$,3.7
+RS0226,Nashville,City House,Italian,$$$,4.8
+RS0227,Nashville,The Pharmacy Burger,American,$$$$,3.2
+RS0228,Nashville,Mas Tacos,Mexican,$$$,3.9
+RS0229,Nashville,Josephine,American,$$$$,4.2
+RS0230,Nashville,Sinema,American,$$$$,3.4
+RS0231,Nashville,Bastion,American,$,3.1
+RS0232,Nashville,Chauhan Ale & Masala House,Indian,$,4.5
+RS0233,Nashville,The Southern Steak,American,$$,3.4
+RS0234,Nashville,Margot Cafe,French/Italian,$$$,4.7
+RS0235,Nashville,Henrietta Red,Seafood,$$,4.8
+RS0236,Nashville,Milk and Honey,American,$$$,3.7
+RS0237,Nashville,Butcher & Bee,American,$,4.3
+RS0238,Nashville,Etch,American,$$,4.1
+RS0239,Nashville,Dino's,American,$$$,3.4
+RS0240,Nashville,Attaboy,American,$,3.6

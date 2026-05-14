@@ -1,1 +1,181 @@
 id,city,name,category,price_usd,duration_hours
+AC0001,New York,Central Park Bike Tour,Outdoor,33.01,2.5
+AC0002,New York,Metropolitan Museum of Art,Culture,23.4,3.0
+AC0003,New York,Statue of Liberty Ferry,Sightseeing,23.2,3.5
+AC0004,New York,Broadway Show,Entertainment,119.99,2.5
+AC0005,New York,High Line Walk,Outdoor,0.0,1.5
+AC0006,New York,Brooklyn Bridge Walk,Outdoor,0.0,1.0
+AC0007,New York,One World Observatory,Sightseeing,44.89,1.5
+AC0008,New York,NY Food Tour – Greenwich Village,Food,67.86,3.0
+AC0009,New York,MoMA Visit,Culture,29.75,2.5
+AC0010,New York,Yankee Stadium Tour,Sports,24.45,1.5
+AC0011,New York,Chelsea Market Visit,Food,0.0,2.0
+AC0012,New York,Helicopter Tour,Sightseeing,183.89,1.0
+AC0013,New York,Jazz at Blue Note,Entertainment,43.37,2.0
+AC0014,New York,Harlem Gospel Tour,Culture,44.82,2.5
+AC0015,New York,Kayaking in Hudson River,Outdoor,30.58,2.0
+AC0016,Los Angeles,Universal Studios Hollywood,Entertainment,116.49,8.0
+AC0017,Los Angeles,Getty Museum,Culture,0.0,3.0
+AC0018,Los Angeles,Hollywood Sign Hike,Outdoor,0.0,3.5
+AC0019,Los Angeles,Venice Beach Bike Ride,Outdoor,20.67,2.0
+AC0020,Los Angeles,Griffith Observatory,Culture,0.0,2.0
+AC0021,Los Angeles,Warner Bros. Studio Tour,Entertainment,81.57,3.0
+AC0022,Los Angeles,Santa Monica Pier,Sightseeing,0.0,2.0
+AC0023,Los Angeles,LACMA Visit,Culture,22.89,3.0
+AC0024,Los Angeles,Malibu Wine Safari,Food,110.57,4.0
+AC0025,Los Angeles,Runyon Canyon Hike,Outdoor,0.0,2.0
+AC0026,Los Angeles,Sunset Strip Walking Tour,Sightseeing,22.5,2.0
+AC0027,Los Angeles,Kayaking in Marina del Rey,Outdoor,36.25,2.0
+AC0028,Los Angeles,LA Food Tour,Food,68.25,3.5
+AC0029,Los Angeles,The Broad Museum,Culture,0.0,2.5
+AC0030,Los Angeles,Surfing Lesson in Santa Monica,Sports,81.2,2.0
+AC0031,Chicago,Art Institute of Chicago,Culture,23.87,3.0
+AC0032,Chicago,Chicago Architecture Boat Tour,Sightseeing,49.5,1.5
+AC0033,Chicago,Millennium Park Visit,Outdoor,0.0,1.5
+AC0034,Chicago,Navy Pier,Sightseeing,0.0,2.0
+AC0035,Chicago,Willis Tower Skydeck,Sightseeing,29.67,1.0
+AC0036,Chicago,Chicago Deep Dish Pizza Tour,Food,67.97,3.0
+AC0037,Chicago,Wrigley Field Tour,Sports,27.31,1.5
+AC0038,Chicago,Lincoln Park Zoo,Outdoor,0.0,2.5
+AC0039,Chicago,Chicago Blues Bar Crawl,Entertainment,36.78,3.0
+AC0040,Chicago,Museum of Science and Industry,Culture,21.42,3.0
+AC0041,Chicago,360 Chicago Observatory,Sightseeing,28.82,1.0
+AC0042,Chicago,Chicago Jazz Walk,Entertainment,38.3,2.5
+AC0043,Chicago,Kayaking on the Chicago River,Outdoor,47.18,2.0
+AC0044,Chicago,Second City Comedy Show,Entertainment,53.6,2.0
+AC0045,Chicago,Field Museum,Culture,22.94,3.0
+AC0046,Miami,South Beach Walking Tour,Sightseeing,0.0,2.0
+AC0047,Miami,Everglades Airboat Tour,Outdoor,67.0,3.5
+AC0048,Miami,Wynwood Walls Tour,Culture,0.0,1.5
+AC0049,Miami,Snorkeling at Biscayne Bay,Outdoor,52.77,3.0
+AC0050,Miami,Miami Beach Bike Rental,Outdoor,18.14,2.0
+AC0051,Miami,Pérez Art Museum Miami,Culture,14.78,2.0
+AC0052,Miami,Little Havana Food Tour,Food,55.7,2.5
+AC0053,Miami,Sunset Sailing Cruise,Sightseeing,54.53,2.0
+AC0054,Miami,Dolphin Tour,Outdoor,70.62,2.5
+AC0055,Miami,Vizcaya Museum & Gardens,Culture,27.42,2.0
+AC0056,Miami,Miami Nightlife Tour,Entertainment,54.15,3.0
+AC0057,Miami,Paddleboarding in Biscayne Bay,Sports,36.96,2.0
+AC0058,Miami,Art Basel Visit,Culture,0.0,4.0
+AC0059,Miami,Key West Day Trip,Sightseeing,87.32,8.0
+AC0060,Miami,Miami Food & Cocktail Tour,Food,81.79,3.0
+AC0061,San Francisco,Alcatraz Island Tour,Culture,47.63,3.0
+AC0062,San Francisco,Golden Gate Bridge Walk,Outdoor,0.0,2.0
+AC0063,San Francisco,Fisherman's Wharf Visit,Sightseeing,0.0,2.0
+AC0064,San Francisco,Cable Car Ride,Sightseeing,8.61,0.5
+AC0065,San Francisco,Muir Woods Day Trip,Outdoor,16.3,4.0
+AC0066,San Francisco,SF Food Tour – Mission District,Food,65.44,3.0
+AC0067,San Francisco,Palace of Fine Arts,Culture,0.0,1.5
+AC0068,San Francisco,Bike the Golden Gate Bridge,Outdoor,41.51,3.0
+AC0069,San Francisco,Chinatown Walking Tour,Culture,26.12,2.0
+AC0070,San Francisco,SFMOMA,Culture,24.78,3.0
+AC0071,San Francisco,Wine Country Day Trip (Napa),Food,140.05,8.0
+AC0072,San Francisco,Exploratorium,Culture,31.17,3.0
+AC0073,San Francisco,Bay Cruise,Sightseeing,33.41,1.5
+AC0074,San Francisco,Castro District Tour,Culture,22.61,2.0
+AC0075,San Francisco,Kayaking in the Bay,Outdoor,65.82,2.5
+AC0076,Las Vegas,Grand Canyon Helicopter Tour,Sightseeing,319.43,4.0
+AC0077,Las Vegas,Hoover Dam Tour,Sightseeing,46.73,4.0
+AC0078,Las Vegas,Cirque du Soleil O Show,Entertainment,113.17,2.0
+AC0079,Las Vegas,High Roller Observation Wheel,Sightseeing,34.28,1.0
+AC0080,Las Vegas,Mob Museum,Culture,29.26,2.0
+AC0081,Las Vegas,Zion National Park Day Trip,Outdoor,99.82,8.0
+AC0082,Las Vegas,Las Vegas Food Tour,Food,64.12,3.0
+AC0083,Las Vegas,Neon Museum,Culture,24.83,1.5
+AC0084,Las Vegas,Vegas Strip Night Tour,Sightseeing,28.05,2.0
+AC0085,Las Vegas,Flyboard Experience,Sports,90.27,1.0
+AC0086,Las Vegas,Magic Show,Entertainment,70.17,2.0
+AC0087,Las Vegas,Off-Road ATV Adventure,Outdoor,134.07,3.0
+AC0088,Las Vegas,Las Vegas Pool Party,Entertainment,43.68,4.0
+AC0089,Las Vegas,Comedy Club,Entertainment,59.14,2.0
+AC0090,Las Vegas,Antelope Canyon Tour,Outdoor,156.3,8.0
+AC0091,Seattle,Space Needle,Sightseeing,39.66,1.5
+AC0092,Seattle,Pike Place Market Tour,Food,32.92,2.0
+AC0093,Seattle,Chihuly Garden and Glass,Culture,30.51,1.5
+AC0094,Seattle,Mt. Rainier Day Trip,Outdoor,87.91,8.0
+AC0095,Seattle,Underground Tour,Culture,24.04,1.5
+AC0096,Seattle,Seattle Art Museum,Culture,18.75,2.5
+AC0097,Seattle,Kayaking on Lake Union,Outdoor,57.09,2.5
+AC0098,Seattle,Museum of Pop Culture,Culture,31.86,2.0
+AC0099,Seattle,Ferry to Bainbridge Island,Sightseeing,9.89,3.0
+AC0100,Seattle,Coffee Crawl,Food,36.35,2.5
+AC0101,Seattle,Olympic National Park Day Trip,Outdoor,96.2,8.0
+AC0102,Seattle,Burke Museum,Culture,16.07,2.0
+AC0103,Seattle,Seattle Food Tour,Food,70.83,3.0
+AC0104,Seattle,Whale Watching Tour,Outdoor,114.46,4.0
+AC0105,Seattle,Amazon Spheres Visit,Culture,0.0,1.5
+AC0106,Boston,Freedom Trail Walking Tour,Culture,0.0,3.0
+AC0107,Boston,Duck Boat Tour,Sightseeing,47.63,1.5
+AC0108,Boston,Museum of Fine Arts,Culture,28.16,3.0
+AC0109,Boston,Boston Harbor Cruise,Sightseeing,36.7,1.5
+AC0110,Boston,Harvard & MIT Campus Walk,Culture,0.0,3.0
+AC0111,Boston,New England Aquarium,Culture,30.63,2.0
+AC0112,Boston,Fenway Park Tour,Sports,22.94,1.5
+AC0113,Boston,Boston Food Tour,Food,68.14,3.0
+AC0114,Boston,Salem Witch Trials Tour,Culture,31.92,4.0
+AC0115,Boston,Boston Common & Public Garden,Outdoor,0.0,1.5
+AC0116,Boston,Paul Revere House,Culture,6.05,1.0
+AC0117,Boston,Beer & History Tour,Food,53.61,2.5
+AC0118,Boston,Kayaking on the Charles River,Outdoor,54.02,2.0
+AC0119,Boston,Isabella Stewart Gardner Museum,Culture,15.68,2.0
+AC0120,Boston,Whale Watching from Long Wharf,Outdoor,60.49,4.0
+AC0121,New Orleans,French Quarter Walking Tour,Culture,0.0,2.5
+AC0122,New Orleans,Haunted New Orleans Tour,Entertainment,24.1,2.0
+AC0123,New Orleans,Swamp Tour,Outdoor,56.53,3.0
+AC0124,New Orleans,Jazz Club Crawl,Entertainment,39.26,3.0
+AC0125,New Orleans,WWII Museum,Culture,30.48,3.5
+AC0126,New Orleans,Plantation Tour,Culture,43.85,4.0
+AC0127,New Orleans,New Orleans Cooking Class,Food,98.7,3.0
+AC0128,New Orleans,Mardi Gras Museum,Culture,15.8,1.5
+AC0129,New Orleans,Cemetery Tour,Culture,18.59,1.5
+AC0130,New Orleans,Riverboat Cruise,Sightseeing,36.21,2.0
+AC0131,New Orleans,Bourbon Street Night Tour,Entertainment,32.34,2.0
+AC0132,New Orleans,Bayou Kayaking,Outdoor,56.93,3.0
+AC0133,New Orleans,Audubon Zoo,Outdoor,21.59,3.0
+AC0134,New Orleans,NOLA Food Tour,Food,71.0,3.0
+AC0135,New Orleans,New Orleans Art Museum,Culture,13.76,2.0
+AC0136,Denver,Rocky Mountain National Park Day Trip,Outdoor,33.27,8.0
+AC0137,Denver,Denver Art Museum,Culture,13.91,2.5
+AC0138,Denver,Red Rocks Amphitheatre Visit,Outdoor,0.0,3.0
+AC0139,Denver,Denver Botanic Gardens,Outdoor,16.27,2.0
+AC0140,Denver,Brewery Tour,Food,41.16,2.5
+AC0141,Denver,Colorado State Capitol Tour,Culture,0.0,1.5
+AC0142,Denver,Hiking in Golden,Outdoor,0.0,4.0
+AC0143,Denver,Denver Food Tour,Food,64.36,3.0
+AC0144,Denver,Colorado History Museum,Culture,12.09,2.0
+AC0145,Denver,Whitewater Rafting Day Trip,Sports,113.97,6.0
+AC0146,Denver,Snowshoeing in Breckenridge,Sports,91.63,5.0
+AC0147,Denver,Denver Zoo,Outdoor,19.37,3.0
+AC0148,Denver,16th Street Mall Walk,Sightseeing,0.0,1.5
+AC0149,Denver,Buffalo Bill Museum,Culture,10.84,1.5
+AC0150,Denver,Elitch Gardens Theme Park,Entertainment,54.83,6.0
+AC0151,Austin,Bat Bridge Watch,Outdoor,0.0,1.5
+AC0152,Austin,6th Street Bar Crawl,Entertainment,0.0,3.0
+AC0153,Austin,Barton Springs Pool,Outdoor,4.65,2.0
+AC0154,Austin,Texas State Capitol Tour,Culture,0.0,1.5
+AC0155,Austin,BBQ Pit Tour,Food,53.26,3.0
+AC0156,Austin,Kayaking on Lady Bird Lake,Outdoor,41.06,2.0
+AC0157,Austin,South Congress Avenue Walk,Sightseeing,0.0,2.0
+AC0158,Austin,Blanton Museum of Art,Culture,12.59,2.0
+AC0159,Austin,Austin Food & Drink Tour,Food,74.92,3.0
+AC0160,Austin,Live Music at Antone's,Entertainment,20.29,2.0
+AC0161,Austin,Barton Creek Greenbelt Hike,Outdoor,0.0,3.0
+AC0162,Austin,Austin City Limits Music Festival,Entertainment,82.16,8.0
+AC0163,Austin,LBJ Presidential Library,Culture,14.82,2.0
+AC0164,Austin,Hamilton Pool Day Trip,Outdoor,15.97,4.0
+AC0165,Austin,E-scooter Tour of Austin,Sightseeing,24.48,2.0
+AC0166,Nashville,Country Music Hall of Fame,Culture,29.81,2.5
+AC0167,Nashville,Grand Ole Opry Show,Entertainment,80.71,3.0
+AC0168,Nashville,Honky Tonk Bar Crawl,Entertainment,0.0,3.0
+AC0169,Nashville,Ryman Auditorium Tour,Culture,32.94,1.5
+AC0170,Nashville,Nashville Food Tour,Food,65.57,3.0
+AC0171,Nashville,Parthenon in Centennial Park,Culture,10.04,1.5
+AC0172,Nashville,Belle Meade Historic Site,Culture,22.33,2.0
+AC0173,Nashville,Nashville Zoo,Outdoor,17.12,3.0
+AC0174,Nashville,Mammoth Cave Day Trip,Outdoor,55.55,6.0
+AC0175,Nashville,Tennessee Whiskey Distillery Tour,Food,48.98,2.0
+AC0176,Nashville,Pinewood Social,Entertainment,0.0,2.0
+AC0177,Nashville,Music Row Walking Tour,Culture,20.96,2.0
+AC0178,Nashville,Radnor Lake Hike,Outdoor,0.0,2.5
+AC0179,Nashville,Nashville Sounds Baseball Game,Sports,15.55,3.0
+AC0180,Nashville,Live at the Station Inn,Entertainment,15.86,2.0

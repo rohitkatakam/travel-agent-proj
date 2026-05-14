@@ -1,1 +1,121 @@
 id,city,name,check_in,check_out,price_per_night_usd,rating,amenities
+HT0001,New York,The Manhattan Grand,,,358.54,4.6,Concierge; Laundry; Pool; Pet-friendly; Rooftop
+HT0002,New York,Brooklyn Loft Hotel,,,378.96,2.9,Gym; Spa; Rooftop; Business center
+HT0003,New York,Central Park Suites,,,190.63,4.0,Business center; Pool; Parking
+HT0004,New York,Hudson Yards Inn,,,207.31,4.9,Spa; Restaurant; Gym; Laundry
+HT0005,New York,Times Square Premier,,,223.92,2.9,Rooftop; Business center; Concierge; Restaurant; Gym; Pet-friendly; Spa
+HT0006,New York,Soho Boutique Hotel,,,374.91,4.9,Business center; Parking; WiFi
+HT0007,New York,The Midtown Classic,,,389.74,3.1,Gym; Laundry; WiFi
+HT0008,New York,East River Lodge,,,212.8,4.1,Bar; WiFi; Concierge; Pet-friendly; Rooftop; Parking
+HT0009,New York,Fifth Avenue Hotel,,,131.41,3.2,Parking; Pet-friendly; Spa; Laundry; Restaurant; Rooftop; Concierge
+HT0010,New York,NoMad House,,,366.92,3.6,Bar; Business center; Gym; Restaurant; Laundry; Parking; Spa
+HT0011,Los Angeles,Sunset Strip Hotel,,,183.63,4.5,Laundry; Bar; Rooftop
+HT0012,Los Angeles,Beverly Hills Retreat,,,440.03,4.6,Laundry; WiFi; Rooftop; Gym; Pool; Pet-friendly
+HT0013,Los Angeles,Santa Monica Pier Inn,,,403.39,3.3,Rooftop; Restaurant; Gym
+HT0014,Los Angeles,Hollywood Grand,,,427.85,5.0,Rooftop; Pool; Business center; Gym; Parking; Pet-friendly
+HT0015,Los Angeles,The Silver Lake,,,160.52,4.4,Gym; Laundry; Spa; WiFi
+HT0016,Los Angeles,Downtown LA Loft,,,219.56,3.1,Concierge; Gym; Business center; Rooftop; WiFi; Parking; Restaurant
+HT0017,Los Angeles,Venice Beach Resort,,,398.22,3.1,Gym; Bar; Business center; Pool; Concierge; Laundry; Parking
+HT0018,Los Angeles,Griffith Park Lodge,,,189.23,4.9,Rooftop; Concierge; Parking; Spa
+HT0019,Los Angeles,Echo Park Hotel,,,204.89,4.3,Restaurant; Parking; Rooftop; Laundry; Pet-friendly; Spa
+HT0020,Los Angeles,Culver City Inn,,,164.15,4.3,WiFi; Pool; Restaurant; Rooftop; Concierge
+HT0021,Chicago,The Magnificent Mile Hotel,,,364.25,4.5,Pool; WiFi; Parking; Gym; Rooftop; Spa; Business center
+HT0022,Chicago,Millennium Park Lodge,,,301.91,3.1,Parking; Gym; Business center; Concierge
+HT0023,Chicago,Wicker Park Inn,,,133.45,4.3,Pool; Spa; Restaurant; Gym; Parking
+HT0024,Chicago,Navy Pier Suites,,,362.81,2.5,Spa; Pet-friendly; Gym; Restaurant
+HT0025,Chicago,The Loop Hotel,,,125.94,4.1,Rooftop; Restaurant; Business center
+HT0026,Chicago,River North Grand,,,356.45,3.6,Spa; Laundry; Pet-friendly; Restaurant; Pool; Rooftop
+HT0027,Chicago,Lincoln Park Retreat,,,430.82,2.6,Business center; Bar; Restaurant
+HT0028,Chicago,Hyde Park Inn,,,404.45,4.2,Pool; Laundry; Pet-friendly; Parking; Gym
+HT0029,Chicago,Gold Coast Suites,,,306.19,4.0,Restaurant; Spa; Rooftop; Pool; Concierge; Bar
+HT0030,Chicago,Pilsen Boutique,,,109.39,2.8,Spa; Laundry; Pet-friendly; Parking; Rooftop
+HT0031,Miami,South Beach Grand,,,240.07,4.6,Business center; Restaurant; Laundry; Rooftop; Bar
+HT0032,Miami,Art Deco Inn,,,299.88,3.1,Pool; WiFi; Business center; Pet-friendly; Spa
+HT0033,Miami,Brickell City Hotel,,,275.83,4.8,Laundry; Restaurant; Pool; Pet-friendly; Parking; Business center
+HT0034,Miami,Wynwood Boutique,,,437.02,3.1,WiFi; Concierge; Pool; Laundry; Rooftop; Business center
+HT0035,Miami,Coconut Grove Resort,,,372.73,4.6,Laundry; Concierge; Parking; Business center; WiFi; Gym; Bar
+HT0036,Miami,Little Havana Suites,,,154.07,4.1,Rooftop; WiFi; Parking; Concierge; Laundry; Pool; Restaurant
+HT0037,Miami,Coral Gables Hotel,,,394.79,3.1,Pool; Restaurant; Parking; WiFi; Pet-friendly
+HT0038,Miami,Key Biscayne Lodge,,,205.82,4.2,Bar; Spa; Restaurant; Pet-friendly; WiFi
+HT0039,Miami,Design District Inn,,,355.65,4.4,Gym; Spa; Rooftop; Concierge; Bar
+HT0040,Miami,Midtown Miami Hotel,,,310.9,4.3,Pet-friendly; Pool; Bar; Concierge
+HT0041,San Francisco,Union Square Hotel,,,319.2,3.3,Bar; Restaurant; Pool; Concierge
+HT0042,San Francisco,Fisherman's Wharf Inn,,,343.66,3.4,Laundry; Gym; Parking; Spa; Restaurant; Concierge
+HT0043,San Francisco,Castro Boutique,,,157.32,3.3,Bar; Gym; Laundry; Business center; WiFi; Pet-friendly
+HT0044,San Francisco,The Embarcadero Grand,,,339.43,3.0,Business center; Laundry; Rooftop; Restaurant; Gym; Spa; Concierge
+HT0045,San Francisco,Mission District Loft,,,395.8,2.9,Business center; Concierge; Parking
+HT0046,San Francisco,Nob Hill Suites,,,126.31,4.9,Rooftop; Bar; Parking; Gym; Concierge
+HT0047,San Francisco,Chinatown Hotel,,,248.31,2.6,Concierge; Business center; Pool; Bar; Spa
+HT0048,San Francisco,Pacific Heights Lodge,,,442.97,3.1,Gym; Laundry; Restaurant; WiFi; Pet-friendly; Pool; Bar
+HT0049,San Francisco,SoMa Hotel,,,93.47,3.1,Pet-friendly; Laundry; Spa; Gym
+HT0050,San Francisco,The Marina,,,238.23,3.9,Concierge; Pet-friendly; Laundry
+HT0051,Las Vegas,The Strip Grand,,,408.9,4.9,Spa; Parking; Gym; Rooftop; Laundry; Bar; Restaurant
+HT0052,Las Vegas,Fremont Boutique,,,220.23,4.8,Business center; Bar; Restaurant; Parking; Laundry
+HT0053,Las Vegas,Desert Palms Resort,,,433.91,2.8,Bar; Rooftop; Business center; Pool
+HT0054,Las Vegas,Neon Lights Hotel,,,442.16,4.5,Rooftop; Concierge; Gym; Pool
+HT0055,Las Vegas,The High Roller Inn,,,171.02,3.4,Business center; Pet-friendly; Rooftop; Bar; Pool; Parking; Restaurant
+HT0056,Las Vegas,Arts District Suites,,,267.97,3.6,Spa; Pet-friendly; Restaurant; WiFi; Laundry; Concierge; Business center
+HT0057,Las Vegas,Paradise Valley Lodge,,,323.1,4.7,WiFi; Rooftop; Pet-friendly; Laundry
+HT0058,Las Vegas,Summerlin Hotel,,,188.39,3.1,Business center; Gym; Pool; Bar; Concierge; Rooftop
+HT0059,Las Vegas,Henderson Resort,,,244.1,4.4,Business center; Concierge; Pet-friendly
+HT0060,Las Vegas,Downtown Vegas,,,282.82,4.2,Parking; Spa; Pet-friendly; Restaurant
+HT0061,Seattle,Pike Place Inn,,,364.87,5.0,Spa; Concierge; Rooftop; Parking; Gym
+HT0062,Seattle,Capitol Hill Hotel,,,367.86,2.7,Bar; WiFi; Concierge; Laundry; Business center; Restaurant; Rooftop
+HT0063,Seattle,The Space Needle Lodge,,,352.72,3.1,Rooftop; Parking; Gym
+HT0064,Seattle,Queen Anne Suites,,,122.9,3.5,Gym; Business center; WiFi; Pet-friendly; Pool; Laundry; Concierge
+HT0065,Seattle,Ballard Boutique,,,123.51,3.4,Parking; Business center; Pet-friendly; Gym; Bar; Pool
+HT0066,Seattle,Fremont Hotel,,,161.22,3.4,Restaurant; Pet-friendly; Pool; Gym; Business center; Spa
+HT0067,Seattle,Pioneer Square Grand,,,277.59,2.6,Bar; Pet-friendly; Pool
+HT0068,Seattle,South Lake Union Inn,,,435.9,3.8,WiFi; Rooftop; Business center; Bar; Pool; Pet-friendly; Concierge
+HT0069,Seattle,Belltown Hotel,,,98.96,4.8,Bar; Parking; Restaurant
+HT0070,Seattle,Columbia City Lodge,,,167.61,3.4,Bar; Pool; Gym; Spa; Pet-friendly; Laundry; Restaurant
+HT0071,Boston,Beacon Hill Inn,,,409.92,4.3,Concierge; Bar; Business center; Gym
+HT0072,Boston,Back Bay Grand,,,312.95,4.8,Rooftop; Gym; Pet-friendly; WiFi
+HT0073,Boston,The Fenway Hotel,,,214.66,3.0,Restaurant; Business center; Pool
+HT0074,Boston,North End Suites,,,426.61,4.8,Gym; Pool; Pet-friendly; Spa; Business center; Restaurant; Concierge
+HT0075,Boston,South Boston Lodge,,,220.65,3.1,Parking; Pet-friendly; Pool; Rooftop; Concierge; Gym; Laundry
+HT0076,Boston,Cambridge Boutique,,,380.93,4.8,Spa; Parking; WiFi; Bar; Concierge; Business center
+HT0077,Boston,Charlestown Harbor Hotel,,,320.55,3.2,Pool; Rooftop; Business center; Bar; Parking; Pet-friendly; Restaurant
+HT0078,Boston,Jamaica Plain Inn,,,234.53,3.4,Pet-friendly; Spa; Restaurant; Parking
+HT0079,Boston,Brookline Suites,,,228.97,3.7,WiFi; Pet-friendly; Pool; Bar; Laundry; Restaurant
+HT0080,Boston,The Seaport,,,429.84,3.3,Laundry; WiFi; Rooftop; Business center; Spa
+HT0081,New Orleans,French Quarter Grand,,,281.35,2.6,Business center; Concierge; Rooftop; Gym; Bar; Pet-friendly; WiFi
+HT0082,New Orleans,Garden District Inn,,,385.55,4.2,Parking; Spa; Bar; Rooftop; WiFi
+HT0083,New Orleans,The Marigny Hotel,,,340.71,4.8,Business center; Rooftop; Laundry; Gym; Bar; Pet-friendly
+HT0084,New Orleans,Warehouse District Suites,,,345.47,2.7,Pet-friendly; Gym; Spa
+HT0085,New Orleans,Bywater Boutique,,,105.28,3.5,Pet-friendly; Spa; Concierge; WiFi
+HT0086,New Orleans,Uptown Lodge,,,326.45,4.8,Restaurant; WiFi; Spa
+HT0087,New Orleans,Mid-City Hotel,,,105.11,2.9,Gym; Parking; Spa; Bar; Laundry
+HT0088,New Orleans,Tremé Inn,,,333.94,4.3,Concierge; Laundry; Restaurant; Parking
+HT0089,New Orleans,Lakeview Suites,,,238.72,3.5,Spa; Laundry; Restaurant; Parking; WiFi
+HT0090,New Orleans,Algiers Point Hotel,,,104.05,4.4,Spa; Pet-friendly; Restaurant; WiFi; Parking
+HT0091,Denver,Mile High Hotel,,,130.5,4.8,Laundry; Spa; Pool; Concierge
+HT0092,Denver,LoDo Boutique,,,181.34,4.2,Pool; Gym; Rooftop; Bar; Laundry; Concierge
+HT0093,Denver,Capitol Hill Inn,,,362.96,3.5,Restaurant; Rooftop; Business center; Concierge; Laundry; WiFi
+HT0094,Denver,Cherry Creek Grand,,,134.76,5.0,Pool; Rooftop; Pet-friendly; Spa
+HT0095,Denver,RiNo Art Hotel,,,228.7,2.7,Pet-friendly; Pool; Laundry; Spa; WiFi; Parking
+HT0096,Denver,Washington Park Lodge,,,222.52,4.3,Spa; Parking; Concierge
+HT0097,Denver,Baker District Suites,,,203.45,3.9,Concierge; WiFi; Rooftop; Spa; Business center; Bar
+HT0098,Denver,Highland Hotel,,,255.33,4.8,Bar; Restaurant; Gym; Business center
+HT0099,Denver,Stapleton Inn,,,429.86,3.8,Parking; Business center; Gym
+HT0100,Denver,Globeville Loft,,,325.88,3.6,Gym; Laundry; Spa; Bar
+HT0101,Austin,Sixth Street Grand,,,147.0,3.9,Pool; Spa; Concierge; Rooftop; Restaurant; Pet-friendly
+HT0102,Austin,South Congress Inn,,,311.69,2.9,WiFi; Pool; Laundry; Parking; Business center
+HT0103,Austin,The Domain Hotel,,,91.12,2.5,Bar; WiFi; Gym; Pool; Spa
+HT0104,Austin,East Austin Boutique,,,397.52,4.4,Parking; Concierge; Pool
+HT0105,Austin,Rainey Street Suites,,,96.13,4.6,Concierge; Rooftop; Pool
+HT0106,Austin,Zilker Lodge,,,416.69,3.1,Concierge; Laundry; Parking; Restaurant; Business center; Spa
+HT0107,Austin,Mueller Hotel,,,252.52,4.7,Concierge; Restaurant; Bar; Pet-friendly; Rooftop; Pool
+HT0108,Austin,Hyde Park Inn,,,448.69,4.7,Gym; Restaurant; Business center; Parking
+HT0109,Austin,North Loop Suites,,,104.32,3.5,Business center; WiFi; Parking; Restaurant; Gym
+HT0110,Austin,Travis Heights Hotel,,,407.1,3.7,Spa; Parking; Gym; Bar; Business center; Pet-friendly; Laundry
+HT0111,Nashville,Broadway Grand,,,328.53,2.8,Pet-friendly; Parking; Business center; Bar; Rooftop; Gym
+HT0112,Nashville,The Gulch Hotel,,,326.36,4.0,Spa; Business center; Laundry; Concierge; Rooftop; Parking; Bar
+HT0113,Nashville,12South Inn,,,139.88,2.8,Rooftop; Parking; Bar; Restaurant; Spa; Pet-friendly
+HT0114,Nashville,Music Row Suites,,,210.57,4.7,Restaurant; Concierge; Parking; WiFi; Spa; Pool
+HT0115,Nashville,Germantown Boutique,,,163.32,3.9,Rooftop; Parking; Gym; Pet-friendly; WiFi; Bar
+HT0116,Nashville,East Nashville Lodge,,,319.85,3.9,Restaurant; Laundry; Concierge; Gym
+HT0117,Nashville,Sylvan Park Hotel,,,177.45,4.3,Gym; Parking; Bar; Pet-friendly
+HT0118,Nashville,Midtown Suites,,,123.94,2.7,Bar; Concierge; Laundry; Rooftop; WiFi; Business center
+HT0119,Nashville,The Nations Inn,,,395.94,3.3,WiFi; Business center; Bar
+HT0120,Nashville,Belmont Hotel,,,219.66,4.8,Spa; Gym; Business center; Restaurant; Pool
