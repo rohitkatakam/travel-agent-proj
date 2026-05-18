@@ -1,4 +1,4 @@
-"""Retrieval module — Rohit Katakam.
+"""Retrieval module.
 
 All retrieval is grounded in local CSV data under data/travel_db/.
 No hallucinated results, no external API calls.

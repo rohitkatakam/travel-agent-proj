@@ -1,4 +1,4 @@
-"""Policy/action module — Alan Wang.
+"""Policy/action module.
 
 Decides the next system action given the current dialogue state.
 """

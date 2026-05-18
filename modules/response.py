@@ -1,4 +1,4 @@
-"""Response generator — Alan Wang.
+"""Response generator.
 
 Converts a (state, action, retrieval results) tuple into a natural-language reply.
 """

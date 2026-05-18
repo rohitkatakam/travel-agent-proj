@@ -1,4 +1,4 @@
-"""Dialogue State Tracker (DST) — Alex Shen.
+"""Dialogue State Tracker (DST).
 
 Approach: Option A (prompt-based LLM slot extraction).
 
