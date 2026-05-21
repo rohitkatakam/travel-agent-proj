@@ -1,4 +1,4 @@
-"""Shared DialogueState contract. Do not modify without team sign-off."""
+"""Shared DialogueState contract. Do not modify without coordinating — this is the shared contract between all modules."""
 
 from dataclasses import dataclass, field
 from typing import List, Optional

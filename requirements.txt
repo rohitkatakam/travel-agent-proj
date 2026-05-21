@@ -1,2 +1,4 @@
 openai
 pandas
+scikit-learn
+joblib
