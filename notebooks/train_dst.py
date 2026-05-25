@@ -33,7 +33,7 @@ SLOT_SOURCES: Dict[str, List[Tuple[str, str]]] = {
   "destination":   [("train", "train-destination")],
   "depart_date":   [("train", "train-day")],
   "budget_usd":    [("hotel", "hotel-pricerange"), ("restaurant", "restaurant-pricerange")],
-  "num_travelers": [("train", "train-people"), ("hotel", "hotel-people"), ("restaurant", "restaurant-people")],
+  "num_travelers": [("train", "train-bookpeople"), ("hotel", "hotel-bookpeople"), ("restaurant", "restaurant-bookpeople")],
   "preferences":   [("hotel", "hotel-type"), ("restaurant", "restaurant-food"), ("attraction", "attraction-type")],
 }
 
@@ -48,11 +48,11 @@ PRICE_RANGE_TO_USD: Dict[str, str] = {
 def _get_slot_value(frames: Dict, slot: str) -> str:
   """Extract the first non-empty value for a slot from a turn's frames.
 
-  frames is a columnar dict: {"service": [str], "state": {"slot_values": [[{slot, value}]]}}
+  frames is a columnar dict: {"service": [str], "state": [{"slots_values": {...}}]}
+  slot_values are stored as parallel arrays: slots_values_name and slots_values_list.
   Tries each source domain/key in priority order; returns NONE_TOKEN if nothing is found.
   """
   services: List[str] = frames.get("service", [])
-  # states[j] is the state dict for frame j; slot_values within is a list of {slot, value} pairs
   states: List = frames.get("state", [])
 
   for domain, key in SLOT_SOURCES.get(slot, []):
@@ -61,9 +61,12 @@ def _get_slot_value(frames: Dict, slot: str) -> str:
         continue
       if j >= len(states):
         continue
-      for sv in states[j].get("slot_values", []):
-        if sv.get("slot") == key and sv.get("value"):
-          raw = sv["value"][0].strip().lower()
+      sv = states[j].get("slots_values", {})
+      names: List[str] = sv.get("slots_values_name", [])
+      values: List[List[str]] = sv.get("slots_values_list", [])
+      for k, name in enumerate(names):
+        if name == key and k < len(values) and values[k]:
+          raw = values[k][0].strip().lower()
           if slot == "budget_usd":
             return PRICE_RANGE_TO_USD.get(raw, NONE_TOKEN)
           return raw
