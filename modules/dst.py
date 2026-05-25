@@ -1,6 +1,7 @@
 """Dialogue State Tracker (DST).
 
-Approach: Trained scikit-learn classifier for slot extraction.
+Approach: Hybrid extraction — trained scikit-learn classifier for preferences,
+regex rules for structured slots (cities, dates, traveler count, budget).
 
 Training runs on Colab using MultiWOZ 2.2 data (hotel, restaurant, attraction,
 train domains only). The trained model is saved as a pickle at
@@ -10,8 +11,10 @@ No external API calls or LLM prompts are used.
 """
 
 import pickle
+import re
+from datetime import date, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from modules.state import DialogueState
 
@@ -29,6 +32,39 @@ _SLOT_NAMES = (
 )
 
 _NONE_TOKEN = "<NONE>"
+
+# Cities present in data/travel_db/flights.csv — longest first to avoid
+# multi-word prefix collisions (e.g. "New" matching before "New York").
+_KNOWN_CITIES = [
+  "San Francisco", "New Orleans", "Los Angeles",
+  "Las Vegas", "New York",
+  "Austin", "Boston", "Chicago", "Denver",
+  "Miami", "Nashville", "Seattle",
+]
+
+_WORD_NUMS: Dict[str, int] = {
+  "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+  "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+}
+
+_MONTH_NUMS: Dict[str, int] = {
+  "january": 1, "jan": 1, "february": 2, "feb": 2, "march": 3, "mar": 3,
+  "april": 4, "apr": 4, "may": 5, "june": 6, "jun": 6,
+  "july": 7, "jul": 7, "august": 8, "aug": 8, "september": 9, "sep": 9,
+  "october": 10, "oct": 10, "november": 11, "nov": 11, "december": 12, "dec": 12,
+}
+
+_WEEKDAY_NUMS: Dict[str, int] = {
+  "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
+  "friday": 4, "saturday": 5, "sunday": 6,
+}
+
+# Words that suggest a date applies to the return leg, not departure.
+_RETURN_KEYWORDS = re.compile(
+  r'\b(return(?:ing)?|come?\s+back|coming\s+home|back\s+(?:on|by)|arrive\s+back|'
+  r'heading\s+back|fly(?:ing)?\s+back)\b',
+  re.I,
+)
 
 
 def _load_model() -> Dict[str, Any]:
@@ -109,6 +145,191 @@ def _predict_slots(
   return predictions
 
 
+def _find_dates_in_text(text: str) -> List[Tuple[int, str]]:
+  """Find all date-like patterns and return (position, YYYY-MM-DD) pairs.
+
+  Handles ISO dates, month-day phrases, and weekday names. Pairs are
+  sorted by their position in the text.
+
+  Args:
+    text: Raw user text (lowercased).
+
+  Returns:
+    List of (char_position, "YYYY-MM-DD") sorted ascending by position.
+  """
+  today = date.today()
+  found: List[Tuple[int, str]] = []
+
+  # ISO date: 2026-06-07
+  for m in re.finditer(r'\b(\d{4}-\d{2}-\d{2})\b', text):
+    found.append((m.start(), m.group(1)))
+
+  # Month Day[st/nd/rd/th]: "june 7", "june 7th"
+  month_alt = "|".join(_MONTH_NUMS.keys())
+  for m in re.finditer(
+    rf'\b({month_alt})\s+(\d{{1,2}})(?:st|nd|rd|th)?\b', text, re.I
+  ):
+    month = _MONTH_NUMS[m.group(1).lower()]
+    day = int(m.group(2))
+    try:
+      candidate = date(today.year, month, day)
+      year = today.year if candidate >= today else today.year + 1
+      found.append((m.start(), f"{year}-{month:02d}-{day:02d}"))
+    except ValueError:
+      pass
+
+  # Weekday names: "friday", "next friday"
+  for day_name, day_num in _WEEKDAY_NUMS.items():
+    for m in re.finditer(rf'\b(next\s+)?{day_name}\b', text, re.I):
+      days_ahead = (day_num - today.weekday() + 7) % 7
+      if m.group(1) or days_ahead == 0:
+        days_ahead += 7
+      resolved = (today + timedelta(days=days_ahead)).strftime("%Y-%m-%d")
+      found.append((m.start(), resolved))
+
+  # Sort by position; deduplicate keeping first occurrence of each date value.
+  found.sort(key=lambda x: x[0])
+  seen: set = set()
+  unique: List[Tuple[int, str]] = []
+  for pos, d in found:
+    if d not in seen:
+      seen.add(d)
+      unique.append((pos, d))
+  return unique
+
+
+def _extract_slots_regex(
+  conversation_history: List[dict],
+  n_turns: int = 3,
+) -> Dict[str, Any]:
+  """Rule-based slot extraction to supplement the ML classifier.
+
+  Handles origin/destination (matched against known DB cities), dates
+  (resolved to YYYY-MM-DD), number of travelers, and budget.
+
+  Args:
+    conversation_history: List of {"role": str, "content": str} dicts.
+    n_turns: Number of most recent user turns to include.
+
+  Returns:
+    Dict of slot_name -> extracted value (str); only populated keys found.
+  """
+  user_turns = [
+    t["content"] for t in conversation_history if t.get("role") == "user"
+  ]
+  text = " ".join(user_turns[-n_turns:]) if user_turns else ""
+  tl = text.lower()
+  results: Dict[str, Any] = {}
+
+  # --- Cities ---
+  origin: Optional[str] = None
+  destination: Optional[str] = None
+
+  # Try "from X to Y" pattern first; check captured groups against known cities.
+  from_to = re.search(r'\bfrom\s+(.+?)\s+to\s+(\S[\w\s]*?)(?=\s*(?:\bon\b|\bfor\b|,|\.|$))', tl)
+  if from_to:
+    g1, g2 = from_to.group(1), from_to.group(2)
+    for city in _KNOWN_CITIES:
+      cl = city.lower()
+      if cl in g1 and origin is None:
+        origin = city
+      if cl in g2 and destination is None:
+        destination = city
+
+  # Standalone origin patterns.
+  if origin is None:
+    for city in _KNOWN_CITIES:
+      cl = city.lower()
+      if (
+        re.search(r'\bfrom\s+' + re.escape(cl), tl)
+        or re.search(r'\bdepart(?:ing|ure)?\s+(?:from\s+)?' + re.escape(cl), tl)
+        or re.search(r'\bleaving\s+' + re.escape(cl), tl)
+      ):
+        origin = city
+        break
+
+  # Standalone destination patterns.
+  if destination is None:
+    for city in _KNOWN_CITIES:
+      cl = city.lower()
+      if (
+        re.search(r'\bto\s+' + re.escape(cl), tl)
+        or re.search(r'\bvisit(?:ing)?\s+' + re.escape(cl), tl)
+        or re.search(r'\bgoing\s+to\s+' + re.escape(cl), tl)
+        or re.search(r'\bheaded?\s+to\s+' + re.escape(cl), tl)
+      ):
+        destination = city
+        break
+
+  if origin:
+    results["origin"] = origin
+  if destination:
+    results["destination"] = destination
+
+  # --- Dates ---
+  dated_pairs = _find_dates_in_text(tl)
+  if dated_pairs:
+    return_idx: Optional[int] = None
+    depart_idx: Optional[int] = None
+
+    for i, (pos, _) in enumerate(dated_pairs):
+      # Look at a short window of text before the date for return context.
+      window = tl[max(0, pos - 60):pos]
+      if _RETURN_KEYWORDS.search(window):
+        if return_idx is None:
+          return_idx = i
+      else:
+        if depart_idx is None:
+          depart_idx = i
+
+    if depart_idx is not None:
+      results["depart_date"] = dated_pairs[depart_idx][1]
+    if return_idx is not None:
+      results["return_date"] = dated_pairs[return_idx][1]
+    elif len(dated_pairs) >= 2 and depart_idx == 0:
+      # Two dates, no return keyword — treat second as return.
+      results["return_date"] = dated_pairs[1][1]
+
+  # --- Num travelers ---
+  word_alt = "|".join(_WORD_NUMS.keys())
+  num_travel_pat = re.compile(
+    rf'\b(?:(\d+)|({word_alt}))\s+'
+    r'(?:people|person|persons|passenger|passengers|traveler|travelers|adult|adults|ticket|tickets)\b',
+    re.I,
+  )
+  m = num_travel_pat.search(tl)
+  if m:
+    results["num_travelers"] = str(int(m.group(1)) if m.group(1) else _WORD_NUMS[m.group(2).lower()])
+  else:
+    party_pat = re.compile(
+      rf'\bparty\s+of\s+(?:(\d+)|({word_alt}))\b', re.I
+    )
+    m = party_pat.search(tl)
+    if m:
+      results["num_travelers"] = str(int(m.group(1)) if m.group(1) else _WORD_NUMS[m.group(2).lower()])
+
+  # --- Budget ---
+  budget_pat = re.compile(r'\$\s*(\d[\d,]*)', re.I)
+  m = budget_pat.search(tl)
+  if m:
+    results["budget_usd"] = m.group(1).replace(",", "")
+  else:
+    unit_pat = re.compile(r'(\d[\d,]*)\s*(?:dollars?|usd)\b', re.I)
+    m = unit_pat.search(tl)
+    if m:
+      results["budget_usd"] = m.group(1).replace(",", "")
+    else:
+      ctx_pat = re.compile(
+        r'\b(?:budget|spend(?:ing)?|afford|up\s+to|max(?:imum)?|around|about)\s+\$?\s*(\d[\d,]+)',
+        re.I,
+      )
+      m = ctx_pat.search(tl)
+      if m:
+        results["budget_usd"] = m.group(1).replace(",", "")
+
+  return results
+
+
 def _merge_predictions(
   state: DialogueState,
   predictions: Dict[str, Optional[str]],
@@ -148,9 +369,10 @@ def update_state(
 ) -> DialogueState:
   """Extract slots from conversation history and merge into state.
 
-  Loads the trained classifier from `data/processed/dst_model.pkl`,
-  extracts features from the conversation text, predicts slot values,
-  and merges any non-null predictions into the current DialogueState.
+  Uses a hybrid approach: the trained scikit-learn classifier handles
+  open-ended preferences (food/activity types); regex rules handle
+  structured slots (cities, dates, traveler count, budget). Regex
+  results take priority when non-null.
 
   Args:
     state: Current dialogue state.
@@ -161,9 +383,11 @@ def update_state(
   """
   model = _load_model()
   features = _extract_features(conversation_history, model["vectorizer"])
-  predictions = _predict_slots(
-    features,
-    model["classifiers"],
-    model["vocabularies"],
-  )
-  return _merge_predictions(state, predictions)
+  clf_predictions = _predict_slots(features, model["classifiers"], model["vocabularies"])
+
+  regex_predictions = _extract_slots_regex(conversation_history)
+
+  # Regex wins for every slot it confidently found.
+  merged = {**clf_predictions, **{k: v for k, v in regex_predictions.items() if v is not None}}
+
+  return _merge_predictions(state, merged)
