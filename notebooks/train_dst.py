@@ -52,16 +52,16 @@ def _get_slot_value(frames: Dict, slot: str) -> str:
   Tries each source domain/key in priority order; returns NONE_TOKEN if nothing is found.
   """
   services: List[str] = frames.get("service", [])
-  # slot_values_per_frame[j] is a list of {"slot": str, "value": [str]} pairs for frame j
-  slot_values_per_frame: List = frames.get("state", {}).get("slot_values", [])
+  # states[j] is the state dict for frame j; slot_values within is a list of {slot, value} pairs
+  states: List = frames.get("state", [])
 
   for domain, key in SLOT_SOURCES.get(slot, []):
     for j, service in enumerate(services):
       if service.lower() != domain:
         continue
-      if j >= len(slot_values_per_frame):
+      if j >= len(states):
         continue
-      for sv in slot_values_per_frame[j]:
+      for sv in states[j].get("slot_values", []):
         if sv.get("slot") == key and sv.get("value"):
           raw = sv["value"][0].strip().lower()
           if slot == "budget_usd":
