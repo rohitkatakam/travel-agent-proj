@@ -45,23 +45,28 @@ PRICE_RANGE_TO_USD: Dict[str, str] = {
 }
 
 
-def _get_slot_value(frames: List[Dict], slot: str) -> str:
+def _get_slot_value(frames: Dict, slot: str) -> str:
   """Extract the first non-empty value for a slot from a turn's frames.
 
-  Tries each source domain/key in priority order; returns NONE_TOKEN if
-  nothing is found.
+  frames is a columnar dict: {"service": [str], "state": {"slot_values": [[{slot, value}]]}}
+  Tries each source domain/key in priority order; returns NONE_TOKEN if nothing is found.
   """
+  services: List[str] = frames.get("service", [])
+  # slot_values_per_frame[j] is a list of {"slot": str, "value": [str]} pairs for frame j
+  slot_values_per_frame: List = frames.get("state", {}).get("slot_values", [])
+
   for domain, key in SLOT_SOURCES.get(slot, []):
-    for frame in frames:
-      if frame.get("service", "").lower() != domain:
+    for j, service in enumerate(services):
+      if service.lower() != domain:
         continue
-      slot_values = frame.get("state", {}).get("slot_values", {})
-      values = slot_values.get(key, [])
-      if values:
-        raw = values[0].strip().lower()
-        if slot == "budget_usd":
-          return PRICE_RANGE_TO_USD.get(raw, NONE_TOKEN)
-        return raw
+      if j >= len(slot_values_per_frame):
+        continue
+      for sv in slot_values_per_frame[j]:
+        if sv.get("slot") == key and sv.get("value"):
+          raw = sv["value"][0].strip().lower()
+          if slot == "budget_usd":
+            return PRICE_RANGE_TO_USD.get(raw, NONE_TOKEN)
+          return raw
   return NONE_TOKEN
 
 
