@@ -2,3 +2,4 @@ openai
 pandas
 scikit-learn
 joblib
+datasets
