@@ -9,18 +9,82 @@ Metrics:
 
 from typing import List, Optional
 
+_DST_SLOTS = ("origin", "destination", "depart_date", "return_date", "budget_usd", "num_travelers", "preferences")
+
 
 def evaluate_dst(test_dialogues: List[dict]) -> dict:
   """Evaluate DST slot accuracy and joint goal accuracy.
 
+  Replays each dialogue turn-by-turn through update_state(), then compares
+  the final predicted DialogueState to the gold_slots labels.
+
   Args:
-    test_dialogues: List of dicts with "turns" and "gold_state" keys.
+    test_dialogues: List of dicts with "turns" and "gold_slots" keys.
+      Each turn has "speaker" ("user"/"system") and "text" fields.
 
   Returns:
-    {"slot_accuracy": float | None, "joint_goal_accuracy": float | None}
+    {
+      "slot_accuracy": float | None,       # avg per-slot accuracy across all slots/dialogues
+      "joint_goal_accuracy": float | None, # % dialogues where ALL slots match gold
+      "per_slot_accuracy": dict | None,    # per-slot breakdown
+    }
   """
-  # TODO: Run update_state on each turn, compare predicted state to gold_state.
-  return {"slot_accuracy": None, "joint_goal_accuracy": None}
+  if not test_dialogues:
+    return {"slot_accuracy": None, "joint_goal_accuracy": None, "per_slot_accuracy": None}
+
+  from modules.dst import update_state
+  from modules.state import DialogueState
+
+  slot_correct = {s: 0 for s in _DST_SLOTS}
+  joint_correct = 0
+
+  for dialogue in test_dialogues:
+    state = DialogueState()
+    history: List[dict] = []
+    gold_slots = dialogue.get("gold_slots", {})
+
+    for turn in dialogue.get("turns", []):
+      speaker = turn.get("speaker", "")
+      role = "user" if speaker == "user" else "assistant"
+      history.append({"role": role, "content": turn.get("text", "")})
+      if speaker == "user":
+        state = update_state(state, history)
+
+    all_match = True
+    for slot in _DST_SLOTS:
+      gold_val = gold_slots.get(slot)
+      pred_val = getattr(state, slot, None)
+
+      if slot == "preferences":
+        match = set(pred_val or []) == set(gold_val or [])
+      elif slot in ("budget_usd", "num_travelers"):
+        try:
+          gold_int = int(gold_val) if gold_val is not None else None
+          pred_int = int(pred_val) if pred_val is not None else None
+        except (TypeError, ValueError):
+          gold_int, pred_int = gold_val, pred_val
+        match = pred_int == gold_int
+      else:
+        match = pred_val == gold_val
+
+      if match:
+        slot_correct[slot] += 1
+      else:
+        all_match = False
+
+    if all_match:
+      joint_correct += 1
+
+  n = len(test_dialogues)
+  per_slot = {s: slot_correct[s] / n for s in _DST_SLOTS}
+  slot_accuracy = sum(slot_correct.values()) / (n * len(_DST_SLOTS))
+  joint_goal_accuracy = joint_correct / n
+
+  return {
+    "slot_accuracy": slot_accuracy,
+    "joint_goal_accuracy": joint_goal_accuracy,
+    "per_slot_accuracy": per_slot,
+  }
 
 
 def evaluate_retrieval(test_dialogues: List[dict], k: int = 5) -> dict:
@@ -66,8 +130,14 @@ def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
 
 
 if __name__ == "__main__":
+  import json
+  from pathlib import Path
+
+  _TEST_PATH = Path(__file__).parent / "data" / "test_dialogues.json"
+  test_data: List[dict] = json.loads(_TEST_PATH.read_text()) if _TEST_PATH.exists() else []
+
   results = {
-    "dst": evaluate_dst([]),
+    "dst": evaluate_dst(test_data),
     "retrieval": evaluate_retrieval([]),
     "policy": evaluate_policy([]),
     "end_to_end": evaluate_end_to_end([]),
