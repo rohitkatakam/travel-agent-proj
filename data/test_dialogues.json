@@ -1,0 +1,1034 @@
+[
+  {
+    "id": "tc01_happy_path",
+    "description": "All required and optional slots provided in the first user turn. Straight-line flow through retrieval, confirmation, and booking.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from New York to Miami on June 16th, returning June 26th. There will be 2 of us and our total budget is $3000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. JetBlue — $213, departs 2026-06-16\n  2. United — $717, departs 2026-06-14\n  3. Delta — $779, departs 2026-06-26\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (10 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (10 nights), rated 4.8\n  3. Coconut Grove Resort — $373/night (10 nights), rated 4.6\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "I'll take the JetBlue flight and the South Beach Grand hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: JetBlue — New York → Miami, 2026-06-16, $213\n  Hotel: South Beach Grand in Miami, 10 nights at $240/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, please book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: a1b2c3d4-e5f6-7890-abcd-ef1234567890. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Miami!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Miami",
+      "depart_date": "2026-06-16",
+      "return_date": "2026-06-26",
+      "num_travelers": 2,
+      "budget_usd": 3000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc02_slots_sequential",
+    "description": "User provides one required slot per turn. Policy asks for each missing slot before proceeding to retrieval.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to plan a trip."
+      },
+      {
+        "speaker": "system",
+        "text": "Where will you be departing from?",
+        "action": "ask_slot",
+        "slot": "origin"
+      },
+      {
+        "speaker": "user",
+        "text": "I'll be leaving from Boston."
+      },
+      {
+        "speaker": "system",
+        "text": "Where would you like to travel to?",
+        "action": "ask_slot",
+        "slot": "destination"
+      },
+      {
+        "speaker": "user",
+        "text": "I'd like to go to Miami."
+      },
+      {
+        "speaker": "system",
+        "text": "What date would you like to depart? (YYYY-MM-DD)",
+        "action": "ask_slot",
+        "slot": "depart_date"
+      },
+      {
+        "speaker": "user",
+        "text": "June 14th, 2026."
+      },
+      {
+        "speaker": "system",
+        "text": "How many travelers will be on this trip?",
+        "action": "ask_slot",
+        "slot": "num_travelers"
+      },
+      {
+        "speaker": "user",
+        "text": "Just me."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. JetBlue — $414, departs 2026-06-14\n  2. Delta — $520, departs 2026-06-11\n  3. American — $650, departs 2026-06-17\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (7 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (7 nights), rated 4.8\n  3. Wynwood Boutique — $437/night (7 nights), rated 3.1\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "I'll take the first flight and the first hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: JetBlue — Boston → Miami, 2026-06-14, $414\n  Hotel: South Beach Grand in Miami, 7 nights at $240/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, please book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: b2c3d4e5-f6a7-8901-bcde-f12345678901. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Miami!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "Boston",
+      "destination": "Miami",
+      "depart_date": "2026-06-14",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["ask_slot", "ask_slot", "ask_slot", "ask_slot", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc03_budget_conflict",
+    "description": "User's initial budget ($400) is too low for available hotels in the destination. Retrieval returns out-of-budget options; user raises budget to $2000 and retrieval succeeds.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from New York to Chicago on June 13th. Just me, and my budget is $400."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $222, departs 2026-06-13\n  2. Southwest — $151, departs 2026-06-17\n  3. JetBlue — $637, departs 2026-06-03\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Millennium Park Lodge — $302/night (7 nights), rated 3.1\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "These hotels are all way more than I expected. Let me increase my budget to $2000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $222, departs 2026-06-13\n  2. Southwest — $151, departs 2026-06-17\n  3. JetBlue — $637, departs 2026-06-03\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (7 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for the flight and option 2 for the hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → Chicago, 2026-06-13, $222\n  Hotel: Wicker Park Inn in Chicago, 7 nights at $133/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, go ahead."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: c3d4e5f6-a7b8-9012-cdef-123456789012. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-13",
+      "num_travelers": 1,
+      "budget_usd": 2000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc04_no_available_flights",
+    "description": "User requests New York to New Orleans on June 4th. The only flight on that date has 0 seats. Retrieval returns no flights; user adjusts date to June 12th and retrieval succeeds.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from New York to New Orleans on June 4th. There are 2 of us."
+      },
+      {
+        "speaker": "system",
+        "text": "No flights found matching your criteria.\n\nNo hotels found matching your criteria.\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Hmm, that doesn't work. What about June 12th instead?"
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $454, departs 2026-06-12\n  2. United — $777, departs 2026-06-14\n  3. Delta — $683, departs 2026-06-26\n\nHere are some hotel options:\n  1. Bourbon Street Inn — $198/night (7 nights), rated 4.5\n  2. French Quarter Loft — $245/night (7 nights), rated 4.2\n  3. Garden District Hotel — $312/night (7 nights), rated 3.8\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Let's go with the American flight and the first hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → New Orleans, 2026-06-12, $454\n  Hotel: Bourbon Street Inn in New Orleans, 7 nights at $198/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Go ahead and book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: d4e5f6a7-b8c9-0123-defa-234567890123. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to New Orleans!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "New Orleans",
+      "depart_date": "2026-06-12",
+      "num_travelers": 2,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc05_round_trip",
+    "description": "User explicitly specifies a round trip with both departure and return dates. Tests itinerary assembly with a return flight leg.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I'd like a round trip from New York to Chicago. Departing June 17th and returning June 22nd. 2 travelers, budget $4000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Southwest — $151, departs 2026-06-17\n  2. American — $222, departs 2026-06-13\n  3. JetBlue — $780, departs 2026-06-24\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (5 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (5 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (5 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Southwest flight and The Loop Hotel please."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Southwest — New York → Chicago, 2026-06-17, $151\n  Hotel: The Loop Hotel in Chicago, 5 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: e5f6a7b8-c9d0-1234-efab-345678901234. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-17",
+      "return_date": "2026-06-22",
+      "num_travelers": 2,
+      "budget_usd": 4000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc06_correct_destination",
+    "description": "User initially requests Miami but corrects mid-dialogue to Chicago. Tests that the state update overwrites the destination and triggers a fresh retrieval.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from New York to Miami on June 13th. Just me."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. United — $717, departs 2026-06-14\n  2. JetBlue — $213, departs 2026-06-16\n  3. Delta — $779, departs 2026-06-26\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (7 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (7 nights), rated 4.8\n  3. Art Deco Inn — $300/night (7 nights), rated 3.1\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Actually, change the destination to Chicago instead."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $222, departs 2026-06-13\n  2. Southwest — $151, departs 2026-06-17\n  3. JetBlue — $637, departs 2026-06-03\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (7 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both the flight and hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → Chicago, 2026-06-13, $222\n  Hotel: The Loop Hotel in Chicago, 7 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: f6a7b8c9-d0e1-2345-fabc-456789012345. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-13",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc07_vegetarian",
+    "description": "User specifies a vegetarian preference. Tests that the preference slot is captured and propagates to restaurant retrieval.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to go from New York to New Orleans on June 26th. 2 of us. I'm vegetarian so I'll need vegetarian-friendly dining options."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Delta — $683, departs 2026-06-26\n  2. American — $454, departs 2026-06-12\n  3. United — $245, departs 2026-07-16\n\nHere are some hotel options:\n  1. Bourbon Street Inn — $198/night (7 nights), rated 4.5\n  2. French Quarter Loft — $245/night (7 nights), rated 4.2\n  3. Garden District Hotel — $312/night (7 nights), rated 3.8\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 2 for the flight and option 1 for the hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → New Orleans, 2026-06-12, $454\n  Hotel: Bourbon Street Inn in New Orleans, 7 nights at $198/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, go ahead and book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: a7b8c9d0-e1f2-3456-abcd-567890123456. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to New Orleans!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "New Orleans",
+      "depart_date": "2026-06-26",
+      "num_travelers": 2,
+      "preferences": ["vegetarian"]
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc08_pool_preference",
+    "description": "User specifies a pool preference for the hotel. Tests that hotel retrieval ranks pool-amenity hotels higher.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "Flying from New York to Los Angeles on June 7th, returning June 13th. 2 passengers, budget $5000. I'd really like a hotel with a pool."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Alaska — $571, departs 2026-06-07\n  2. United — $441, departs 2026-06-08\n  3. United — $603, departs 2026-06-09\n\nHere are some hotel options:\n  1. Beverly Hills Retreat — $440/night (6 nights), rated 4.6\n  2. Hollywood Grand — $428/night (6 nights), rated 5.0\n  3. Venice Beach Resort — $398/night (6 nights), rated 3.1\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Alaska flight and the Hollywood Grand hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Alaska — New York → Los Angeles, 2026-06-07, $571\n  Hotel: Hollywood Grand in Los Angeles, 6 nights at $428/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book it please."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: b8c9d0e1-f2a3-4567-bcde-678901234567. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Los Angeles!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Los Angeles",
+      "depart_date": "2026-06-07",
+      "return_date": "2026-06-13",
+      "num_travelers": 2,
+      "budget_usd": 5000,
+      "preferences": ["pool"]
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc09_outdoor_activities",
+    "description": "User specifies a preference for outdoor activities. Tests that activity retrieval prioritizes Outdoor-category results.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to visit Seattle from New York, departing June 20th. 2 of us. We love outdoor activities."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Alaska — $288, departs 2026-06-20\n  2. American — $502, departs 2026-06-21\n  3. United — $690, departs 2026-07-06\n\nHere are some hotel options:\n  1. Pike Place Inn — $365/night (7 nights), rated 5.0\n  2. Queen Anne Suites — $123/night (7 nights), rated 3.5\n  3. Ballard Boutique — $124/night (7 nights), rated 3.4\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Alaska — New York → Seattle, 2026-06-20, $288\n  Hotel: Pike Place Inn in Seattle, 7 nights at $365/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, please book."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: c9d0e1f2-a3b4-5678-cdef-789012345678. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Seattle!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Seattle",
+      "depart_date": "2026-06-20",
+      "num_travelers": 2,
+      "preferences": ["outdoor"]
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc10_large_group",
+    "description": "Group of 8 travelers. Tests that the seats_available filter only returns flights with sufficient capacity.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "We're a group flying from New York to Chicago on June 13th. There are 8 of us. Budget is $10000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $222, departs 2026-06-13\n  2. JetBlue — $637, departs 2026-06-03\n  3. American — $781, departs 2026-06-24\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (7 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "We'll take option 1 for both the flight and hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → Chicago, 2026-06-13, $222\n  Hotel: The Loop Hotel in Chicago, 7 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book it!"
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: d0e1f2a3-b4c5-6789-defa-890123456789. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-13",
+      "num_travelers": 8,
+      "budget_usd": 10000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc11_tight_budget",
+    "description": "User has a modest budget ($1200) for a 5-night trip. Tests that retrieval ranks cheapest within-budget options first.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I need to fly from New York to Chicago on June 17th, returning June 22nd. Just me, and I'm on a tight budget — $1200 total."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Southwest — $151, departs 2026-06-17\n  2. American — $222, departs 2026-06-13\n  3. JetBlue — $742, departs 2026-06-29\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (5 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (5 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (5 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Cheapest please — option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Southwest — New York → Chicago, 2026-06-17, $151\n  Hotel: The Loop Hotel in Chicago, 5 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes please."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: e1f2a3b4-c5d6-7890-efab-901234567890. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-17",
+      "return_date": "2026-06-22",
+      "num_travelers": 1,
+      "budget_usd": 1200,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc12_correct_date",
+    "description": "User initially gives June 10th but then corrects to June 14th. Tests that the state update overwrites depart_date and triggers a fresh retrieval with the corrected date.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from San Francisco to Denver on June 10th. Just me."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Southwest — $337, departs 2026-06-11\n  2. United — $368, departs 2026-06-13\n  3. JetBlue — $523, departs 2026-06-03\n\nHere are some hotel options:\n  1. Mile High Inn — $142/night (7 nights), rated 4.4\n  2. Capitol View Lodge — $178/night (7 nights), rated 4.0\n  3. Cherry Creek Hotel — $310/night (7 nights), rated 4.7\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Actually I meant June 14th, not June 10th. Also my budget is $3000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Alaska — $181, departs 2026-06-14\n  2. Southwest — $337, departs 2026-06-11\n  3. United — $368, departs 2026-06-13\n\nHere are some hotel options:\n  1. Mile High Inn — $142/night (7 nights), rated 4.4\n  2. Capitol View Lodge — $178/night (7 nights), rated 4.0\n  3. Cherry Creek Hotel — $310/night (7 nights), rated 4.7\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "The Alaska flight and Mile High Inn please."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Alaska — San Francisco → Denver, 2026-06-14, $181\n  Hotel: Mile High Inn in Denver, 7 nights at $142/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: f2a3b4c5-d6e7-8901-fabc-012345678901. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Denver!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "San Francisco",
+      "destination": "Denver",
+      "depart_date": "2026-06-14",
+      "num_travelers": 1,
+      "budget_usd": 3000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc13_raise_budget",
+    "description": "User's initial budget ($200) is below even the cheapest available flight. Retrieval presents out-of-budget options; user raises budget to $5000 and retrieval returns within-budget results.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I want to fly from New York to Miami on June 16th, returning June 26th. 2 of us. Budget is $200."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. JetBlue — $213, departs 2026-06-16\n  2. United — $413, departs 2026-06-28\n  3. Delta — $779, departs 2026-06-26\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (10 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (10 nights), rated 4.8\n  3. Coconut Grove Resort — $373/night (10 nights), rated 4.6\n\nNote: these options exceed your stated budget. Which would you like?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "I see — let me increase my budget to $5000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. JetBlue — $213, departs 2026-06-16\n  2. United — $413, departs 2026-06-28\n  3. Delta — $779, departs 2026-06-26\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (10 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (10 nights), rated 4.8\n  3. Coconut Grove Resort — $373/night (10 nights), rated 4.6\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "JetBlue flight and South Beach Grand hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: JetBlue — New York → Miami, 2026-06-16, $213\n  Hotel: South Beach Grand in Miami, 10 nights at $240/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: a3b4c5d6-e7f8-9012-abcd-123456789012. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Miami!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Miami",
+      "depart_date": "2026-06-16",
+      "return_date": "2026-06-26",
+      "num_travelers": 2,
+      "budget_usd": 5000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc14_long_trip",
+    "description": "Extended 20-night stay in Las Vegas. Tests itinerary day-loop generation across many middle days and activity distribution.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I need a 20-night stay in Las Vegas. Flying from New York, departing June 12th and returning July 2nd. 2 of us, budget $8000."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Alaska — $414, departs 2026-06-12\n  2. Alaska — $760, departs 2026-06-30\n  3. American — $549, departs 2026-07-19\n\nHere are some hotel options:\n  1. The High Roller Inn — $171/night (20 nights), rated 3.4\n  2. Fremont Boutique — $220/night (20 nights), rated 4.8\n  3. Desert Palms Resort — $434/night (20 nights), rated 2.8\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Alaska — New York → Las Vegas, 2026-06-12, $414\n  Hotel: The High Roller Inn in Las Vegas, 20 nights at $171/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes please."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: b4c5d6e7-f8a9-0123-bcde-234567890123. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Las Vegas!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Las Vegas",
+      "depart_date": "2026-06-12",
+      "return_date": "2026-07-02",
+      "num_travelers": 2,
+      "budget_usd": 8000,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc15_missing_origin",
+    "description": "User omits their origin city. Policy detects the missing slot and asks for it before proceeding to retrieval.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I'd like to travel to Seattle on June 21st. Just me."
+      },
+      {
+        "speaker": "system",
+        "text": "Where will you be departing from?",
+        "action": "ask_slot",
+        "slot": "origin"
+      },
+      {
+        "speaker": "user",
+        "text": "I'll be flying from New York."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. American — $502, departs 2026-06-21\n  2. Alaska — $288, departs 2026-06-20\n  3. United — $690, departs 2026-07-06\n\nHere are some hotel options:\n  1. Pike Place Inn — $365/night (7 nights), rated 5.0\n  2. Queen Anne Suites — $123/night (7 nights), rated 3.5\n  3. Ballard Boutique — $124/night (7 nights), rated 3.4\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → Seattle, 2026-06-21, $502\n  Hotel: Pike Place Inn in Seattle, 7 nights at $365/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: c5d6e7f8-a9b0-1234-cdef-345678901234. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Seattle!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Seattle",
+      "depart_date": "2026-06-21",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["ask_slot", "retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc16_mixed_preferences",
+    "description": "User specifies two preferences: outdoor activities and budget-friendly. Tests that multiple preferences are captured and influence activity and hotel retrieval simultaneously.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "We're traveling from New York to New Orleans on June 26th. 2 of us. We love outdoor activities and are looking for budget-friendly options."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Delta — $683, departs 2026-06-26\n  2. American — $454, departs 2026-06-12\n  3. United — $245, departs 2026-07-16\n\nHere are some hotel options:\n  1. Bourbon Street Inn — $198/night (7 nights), rated 4.5\n  2. French Quarter Loft — $245/night (7 nights), rated 4.2\n  3. Garden District Hotel — $312/night (7 nights), rated 3.8\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 2 for the flight and option 1 for the hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: American — New York → New Orleans, 2026-06-12, $454\n  Hotel: Bourbon Street Inn in New Orleans, 7 nights at $198/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes, book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: d6e7f8a9-b0c1-2345-defa-456789012345. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to New Orleans!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "New Orleans",
+      "depart_date": "2026-06-26",
+      "num_travelers": 2,
+      "preferences": ["outdoor", "budget-friendly"]
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc17_one_way",
+    "description": "User books a one-way flight with no return date. Tests that the itinerary omits a return flight leg and hotel num_nights falls back to the default (7 nights).",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I need a one-way flight from New York to Chicago on June 17th. Just one person."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Southwest — $151, departs 2026-06-17\n  2. American — $222, departs 2026-06-13\n  3. JetBlue — $637, departs 2026-06-03\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Magnificent Mile Hotel — $364/night (7 nights), rated 4.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "First flight and first hotel please."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Southwest — New York → Chicago, 2026-06-17, $151\n  Hotel: The Loop Hotel in Chicago, 7 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: e7f8a9b0-c1d2-3456-efab-567890123456. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-17",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc18_last_minute",
+    "description": "User requests a trip departing June 3rd — the earliest available date in the DB. Tests retrieval at the lower boundary of available flight dates.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I need to get from New York to Chicago on June 3rd. Just one person."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. JetBlue — $637, departs 2026-06-03\n  2. American — $222, departs 2026-06-13\n  3. Southwest — $151, departs 2026-06-17\n\nHere are some hotel options:\n  1. The Loop Hotel — $126/night (7 nights), rated 4.1\n  2. Wicker Park Inn — $133/night (7 nights), rated 4.3\n  3. Navy Pier Suites — $363/night (7 nights), rated 2.5\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: JetBlue — New York → Chicago, 2026-06-03, $637\n  Hotel: The Loop Hotel in Chicago, 7 nights at $126/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: f8a9b0c1-d2e3-4567-fabc-678901234567. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Chicago!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Chicago",
+      "depart_date": "2026-06-03",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc19_luxury",
+    "description": "User specifies a luxury preference with a high budget. Tests that hotel retrieval prioritizes high-rated, higher-price properties.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "I'm planning a luxury trip from New York to Los Angeles. Departing June 7th, returning June 13th. 2 travelers, budget $8000. Looking for top-notch luxury accommodations."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Alaska — $571, departs 2026-06-07\n  2. United — $441, departs 2026-06-08\n  3. United — $603, departs 2026-06-09\n\nHere are some hotel options:\n  1. Hollywood Grand — $428/night (6 nights), rated 5.0\n  2. Beverly Hills Retreat — $440/night (6 nights), rated 4.6\n  3. Santa Monica Pier Inn — $403/night (6 nights), rated 3.3\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Alaska flight and the Hollywood Grand hotel."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Alaska — New York → Los Angeles, 2026-06-07, $571\n  Hotel: Hollywood Grand in Los Angeles, 6 nights at $428/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Book it."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: a9b0c1d2-e3f4-5678-abcd-789012345678. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Los Angeles!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Los Angeles",
+      "depart_date": "2026-06-07",
+      "return_date": "2026-06-13",
+      "num_travelers": 2,
+      "budget_usd": 8000,
+      "preferences": ["luxury"]
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  },
+  {
+    "id": "tc20_solo_traveler",
+    "description": "Solo traveler with minimal conversational overhead. Tests end-to-end booking for a single-person trip with a terse dialogue style.",
+    "turns": [
+      {
+        "speaker": "user",
+        "text": "New York to Miami, June 26th, just me."
+      },
+      {
+        "speaker": "system",
+        "text": "Here are some flight options:\n  1. Delta — $779, departs 2026-06-26\n  2. United — $413, departs 2026-06-28\n  3. JetBlue — $213, departs 2026-06-16\n\nHere are some hotel options:\n  1. South Beach Grand — $240/night (7 nights), rated 4.6\n  2. Brickell City Hotel — $276/night (7 nights), rated 4.8\n  3. Art Deco Inn — $300/night (7 nights), rated 3.1\n\nWhich of these would you like to go with?",
+        "action": "retrieve"
+      },
+      {
+        "speaker": "user",
+        "text": "Option 1 for both."
+      },
+      {
+        "speaker": "system",
+        "text": "Here's your trip summary:\n  Flight: Delta — New York → Miami, 2026-06-26, $779\n  Hotel: South Beach Grand in Miami, 7 nights at $240/night\n\nShall I go ahead and book this trip?",
+        "action": "confirm"
+      },
+      {
+        "speaker": "user",
+        "text": "Yes."
+      },
+      {
+        "speaker": "system",
+        "text": "Your trip is booked! Confirmation ID: b0c1d2e3-f4a5-6789-bcde-890123456789. Have a great trip!",
+        "action": "book"
+      },
+      {
+        "speaker": "system",
+        "text": "All done — enjoy your trip to Miami!",
+        "action": "done"
+      }
+    ],
+    "gold_slots": {
+      "origin": "New York",
+      "destination": "Miami",
+      "depart_date": "2026-06-26",
+      "num_travelers": 1,
+      "preferences": []
+    },
+    "gold_actions": ["retrieve", "confirm", "book", "done"]
+  }
+]
