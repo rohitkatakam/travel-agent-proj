@@ -143,14 +143,47 @@ def evaluate_retrieval(test_dialogues: List[dict], k: int = 5) -> dict:
 def evaluate_policy(test_dialogues: List[dict]) -> dict:
   """Evaluate policy action accuracy against hand-labeled dialogues.
 
+  Replays each dialogue turn-by-turn through update_state(), then calls
+  decide_action() before each system turn and compares to gold_actions.
+
   Args:
-    test_dialogues: List of dicts with "state" and "gold_action" keys.
+    test_dialogues: List of dicts with "turns" and "gold_actions" keys.
 
   Returns:
     {"action_accuracy": float | None}
   """
-  # TODO: Run decide_action per state, compare to gold_action.
-  return {"action_accuracy": None}
+  if not test_dialogues:
+    return {"action_accuracy": None}
+
+  from modules.dst import update_state
+  from modules.policy import decide_action
+  from modules.state import DialogueState
+
+  correct = 0
+  total = 0
+
+  for dialogue in test_dialogues:
+    state = DialogueState()
+    history: List[dict] = []
+    gold_actions = dialogue.get("gold_actions", [])
+    action_idx = 0
+
+    for turn in dialogue.get("turns", []):
+      speaker = turn.get("speaker", "")
+      role = "user" if speaker == "user" else "assistant"
+      history.append({"role": role, "content": turn.get("text", "")})
+
+      if speaker == "user":
+        state = update_state(state, history)
+      else:
+        if action_idx < len(gold_actions):
+          predicted = decide_action(state)
+          if predicted == gold_actions[action_idx]:
+            correct += 1
+          total += 1
+          action_idx += 1
+
+  return {"action_accuracy": correct / total if total else None}
 
 
 def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
@@ -177,7 +210,7 @@ if __name__ == "__main__":
   results = {
     "dst": evaluate_dst(test_data),
     "retrieval": evaluate_retrieval(test_data),
-    "policy": evaluate_policy([]),
+    "policy": evaluate_policy(test_data),
     "end_to_end": evaluate_end_to_end([]),
   }
   for module, metrics in results.items():
