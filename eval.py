@@ -198,7 +198,7 @@ def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
   if not test_dialogues:
     return {"task_completion_rate": None, "avg_turns": None}
 
-  from agent import run_agent_batch
+  from agent import run_agent
 
   completed = 0
   completed_turns: List[int] = []
@@ -210,11 +210,11 @@ def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
       if turn.get("speaker") == "user"
     ]
     try:
-      outcome = run_agent_batch(user_turns)
+      outcome = run_agent(turns=user_turns)
     except Exception:
       continue
 
-    if outcome["final_action"] == "done":
+    if outcome["task_completed"]:
       completed += 1
       completed_turns.append(outcome["num_user_turns"])
 

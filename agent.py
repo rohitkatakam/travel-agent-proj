@@ -4,7 +4,7 @@ Pipeline per turn:
   user input -> DST -> policy -> retrieval -> itinerary -> response
 """
 
-from typing import List
+from typing import List, Optional
 
 from modules.dst import update_state
 from modules.itinerary import build_itinerary, simulate_booking
@@ -14,86 +14,37 @@ from modules.retrieval import search_flights, search_hotels
 from modules.state import DialogueState
 
 
-def run_agent() -> None:
-  """Run the interactive travel planning agent."""
-  state = DialogueState()
-  history: List[dict] = []
-
-  print("Travel Agent: Hi! I can help you plan a trip. Where would you like to go?")
-
-  while True:
-    user_input = input("You: ").strip()
-    if user_input.lower() in ("exit", "quit", "bye"):
-      print("Travel Agent: Goodbye! Safe travels.")
-      break
-
-    history.append({"role": "user", "content": user_input})
-
-    # 1. DST: extract slots from conversation history
-    state = update_state(state, history)
-
-    # 2. Policy: decide next action
-    action = decide_action(state)
-
-    # 3. Retrieval: fetch options if needed
-    results: dict = {}
-    if action == "retrieve":
-      # TODO: handle NotImplementedError until retrieval is implemented
-      try:
-        results["flights"] = search_flights(state)
-        results["hotels"] = search_hotels(state)
-      except NotImplementedError:
-        results = {}
-
-    # 4. Itinerary: build if confirming
-    if action == "confirm":
-      try:
-        state.itinerary = build_itinerary(
-          state,
-          results.get("flights", []),
-          results.get("hotels", []),
-          [],
-        )
-      except NotImplementedError:
-        pass
-
-    # 5. Booking: simulate if done
-    if action == "book":
-      confirmation = simulate_booking(state)
-      results["confirmation"] = confirmation
-
-    # 6. Response generation
-    reply = generate_response(state, action, results)
-    history.append({"role": "assistant", "content": reply})
-    print(f"Travel Agent: {reply}")
-
-
-def run_agent_batch(user_turns: List[str]) -> dict:
-  """Run the agent pipeline on pre-supplied user turns (non-interactive).
-
-  Mirrors run_agent() logic exactly, replacing stdin with the given turns.
-  Stops when policy returns "done" or all turns are exhausted.
+def run_agent(turns: Optional[List[str]] = None) -> Optional[dict]:
+  """Run the travel planning agent interactively or in batch mode.
 
   Args:
-    user_turns: Ordered list of user utterance strings.
+    turns: If None, run interactively reading from stdin (current behavior,
+      returns None). If a list of strings, feed them in sequence without user
+      interaction and return a result dict.
 
   Returns:
-    {"final_action": str, "num_user_turns": int}
+    None in interactive mode. In batch mode:
+      {
+        "final_state": DialogueState,
+        "transcript": list[dict],    # full [{role, content}, ...] history
+        "action_sequence": list[str], # one action per user turn
+        "task_completed": bool,       # True if final action == "done"
+        "num_user_turns": int,
+      }
   """
   state = DialogueState()
   history: List[dict] = []
-  results: dict = {}
-  final_action: str = ""
+  action_sequence: List[str] = []
 
-  for user_input in user_turns:
-    user_input = user_input.strip()
-    if not user_input:
-      continue
+  def _run_turn(user_input: str) -> str:
+    """Execute one pipeline turn and return the agent reply."""
+    nonlocal state
+    results: dict = {}
 
     history.append({"role": "user", "content": user_input})
     state = update_state(state, history)
     action = decide_action(state)
-    final_action = action
+    action_sequence.append(action)
 
     if action == "retrieve":
       try:
@@ -121,12 +72,37 @@ def run_agent_batch(user_turns: List[str]) -> dict:
 
     reply = generate_response(state, action, results)
     history.append({"role": "assistant", "content": reply})
+    return reply
 
-    if action == "done":
+  if turns is None:
+    # Interactive mode
+    print("Travel Agent: Hi! I can help you plan a trip. Where would you like to go?")
+    while True:
+      user_input = input("You: ").strip()
+      if user_input.lower() in ("exit", "quit", "bye"):
+        print("Travel Agent: Goodbye! Safe travels.")
+        break
+      reply = _run_turn(user_input)
+      print(f"Travel Agent: {reply}")
+    return None
+
+  # Batch mode
+  for user_input in turns:
+    user_input = user_input.strip()
+    if not user_input:
+      continue
+    _run_turn(user_input)
+    if action_sequence and action_sequence[-1] == "done":
       break
 
-  num_user_turns = sum(1 for t in history if t["role"] == "user")
-  return {"final_action": final_action, "num_user_turns": num_user_turns}
+  final_action = action_sequence[-1] if action_sequence else ""
+  return {
+    "final_state": state,
+    "transcript": list(history),
+    "action_sequence": list(action_sequence),
+    "task_completed": final_action == "done",
+    "num_user_turns": sum(1 for t in history if t["role"] == "user"),
+  }
 
 
 if __name__ == "__main__":
