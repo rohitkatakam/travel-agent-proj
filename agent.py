@@ -68,5 +68,66 @@ def run_agent() -> None:
     print(f"Travel Agent: {reply}")
 
 
+def run_agent_batch(user_turns: List[str]) -> dict:
+  """Run the agent pipeline on pre-supplied user turns (non-interactive).
+
+  Mirrors run_agent() logic exactly, replacing stdin with the given turns.
+  Stops when policy returns "done" or all turns are exhausted.
+
+  Args:
+    user_turns: Ordered list of user utterance strings.
+
+  Returns:
+    {"final_action": str, "num_user_turns": int}
+  """
+  state = DialogueState()
+  history: List[dict] = []
+  results: dict = {}
+  final_action: str = ""
+
+  for user_input in user_turns:
+    user_input = user_input.strip()
+    if not user_input:
+      continue
+
+    history.append({"role": "user", "content": user_input})
+    state = update_state(state, history)
+    action = decide_action(state)
+    final_action = action
+
+    if action == "retrieve":
+      try:
+        results["flights"] = search_flights(state)
+        results["hotels"] = search_hotels(state)
+      except NotImplementedError:
+        results = {}
+
+    if action == "confirm":
+      try:
+        state.itinerary = build_itinerary(
+          state,
+          results.get("flights", []),
+          results.get("hotels", []),
+          [],
+        )
+      except NotImplementedError:
+        pass
+
+    if action == "book":
+      try:
+        results["confirmation"] = simulate_booking(state)
+      except (NotImplementedError, ValueError):
+        pass
+
+    reply = generate_response(state, action, results)
+    history.append({"role": "assistant", "content": reply})
+
+    if action == "done":
+      break
+
+  num_user_turns = sum(1 for t in history if t["role"] == "user")
+  return {"final_action": final_action, "num_user_turns": num_user_turns}
+
+
 if __name__ == "__main__":
   run_agent()

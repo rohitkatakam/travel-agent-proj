@@ -195,9 +195,32 @@ def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
   Returns:
     {"task_completion_rate": float | None, "avg_turns": float | None}
   """
-  # TODO: Run run_agent (non-interactive mode) on each dialogue,
-  # check whether booking was completed and count turns.
-  return {"task_completion_rate": None, "avg_turns": None}
+  if not test_dialogues:
+    return {"task_completion_rate": None, "avg_turns": None}
+
+  from agent import run_agent_batch
+
+  completed = 0
+  completed_turns: List[int] = []
+
+  for dialogue in test_dialogues:
+    user_turns = [
+      turn["text"]
+      for turn in dialogue.get("turns", [])
+      if turn.get("speaker") == "user"
+    ]
+    try:
+      outcome = run_agent_batch(user_turns)
+    except Exception:
+      continue
+
+    if outcome["final_action"] == "done":
+      completed += 1
+      completed_turns.append(outcome["num_user_turns"])
+
+  task_completion_rate = completed / len(test_dialogues)
+  avg_turns = sum(completed_turns) / len(completed_turns) if completed_turns else None
+  return {"task_completion_rate": task_completion_rate, "avg_turns": avg_turns}
 
 
 if __name__ == "__main__":
@@ -211,7 +234,7 @@ if __name__ == "__main__":
     "dst": evaluate_dst(test_data),
     "retrieval": evaluate_retrieval(test_data),
     "policy": evaluate_policy(test_data),
-    "end_to_end": evaluate_end_to_end([]),
+    "end_to_end": evaluate_end_to_end(test_data),
   }
   for module, metrics in results.items():
     print(f"{module}: {metrics}")
