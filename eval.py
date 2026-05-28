@@ -90,16 +90,54 @@ def evaluate_dst(test_dialogues: List[dict]) -> dict:
 def evaluate_retrieval(test_dialogues: List[dict], k: int = 5) -> dict:
   """Evaluate retrieval recall@k.
 
+  For each dialogue with complete gold_slots, constructs a DialogueState,
+  calls search_flights / search_hotels, and records whether >=1 result is returned.
+
   Args:
-    test_dialogues: List of dicts with "state" and "gold_results" keys.
+    test_dialogues: List of test dialogue dicts with a "gold_slots" key.
     k: Number of top results to consider.
 
   Returns:
-    {"recall_at_k": float | None}
+    {"flight_recall_at_k": float | None, "hotel_recall_at_k": float | None, "k": int}
   """
-  # TODO: Run search_flights/search_hotels per dialogue state,
-  # check whether gold results appear in top-k returned.
-  return {"recall_at_k": None}
+  from modules.retrieval import search_flights, search_hotels
+  from modules.state import DialogueState
+
+  flight_hits = flight_total = hotel_hits = hotel_total = 0
+
+  for dlg in test_dialogues:
+    gold = dlg.get("gold_slots", {})
+    state = DialogueState(
+      origin=gold.get("origin"),
+      destination=gold.get("destination"),
+      depart_date=gold.get("depart_date"),
+      return_date=gold.get("return_date"),
+      budget_usd=gold.get("budget_usd"),
+      num_travelers=gold.get("num_travelers"),
+      preferences=gold.get("preferences", []),
+    )
+
+    if not state.missing_slots():
+      flight_total += 1
+      try:
+        if search_flights(state, k=k):
+          flight_hits += 1
+      except Exception:
+        pass
+
+    if state.destination is not None:
+      hotel_total += 1
+      try:
+        if search_hotels(state, k=k):
+          hotel_hits += 1
+      except Exception:
+        pass
+
+  return {
+    "flight_recall_at_k": flight_hits / flight_total if flight_total else None,
+    "hotel_recall_at_k": hotel_hits / hotel_total if hotel_total else None,
+    "k": k,
+  }
 
 
 def evaluate_policy(test_dialogues: List[dict]) -> dict:
@@ -138,7 +176,7 @@ if __name__ == "__main__":
 
   results = {
     "dst": evaluate_dst(test_data),
-    "retrieval": evaluate_retrieval([]),
+    "retrieval": evaluate_retrieval(test_data),
     "policy": evaluate_policy([]),
     "end_to_end": evaluate_end_to_end([]),
   }
