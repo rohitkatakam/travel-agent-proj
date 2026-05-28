@@ -35,6 +35,8 @@ def generate_response(
     return _ask_slot(state)
   if action == "retrieve":
     return _present_options(results)
+  if action == "relax_constraints":
+    return _relax_constraints(state)
   if action == "confirm":
     return _confirm_trip(state)
   if action == "book":
@@ -42,6 +44,21 @@ def generate_response(
   if action == "done":
     return _wrap_up(state)
   return "I'm not sure how to help with that. Could you clarify?"
+
+
+def _relax_constraints(state: DialogueState) -> str:
+  parts = []
+  if state.budget_usd is not None:
+    parts.append(f"budget ${state.budget_usd}")
+  if state.depart_date is not None:
+    parts.append(f"departure {state.depart_date}")
+  if state.destination is not None:
+    parts.append(f"destination {state.destination}")
+  context = f" (current: {', '.join(parts)})" if parts else ""
+  return (
+    f"I couldn't find any options matching your current criteria{context}. "
+    "Would you like to adjust your budget, travel dates, or destination?"
+  )
 
 
 def _ask_slot(state: DialogueState) -> str:

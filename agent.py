@@ -42,9 +42,15 @@ def run_agent(turns: Optional[List[str]] = None) -> Optional[dict]:
     results: dict = {}
 
     history.append({"role": "user", "content": user_input})
+
+    # Snapshot filled slots before DST update to detect user corrections.
+    _tracked = ("origin", "destination", "depart_date", "return_date", "budget_usd", "num_travelers")
+    prev_slots = {s: getattr(state, s) for s in _tracked}
     state = update_state(state, history)
-    action = decide_action(state)
-    action_sequence.append(action)
+    changed_slots = {s for s, v in prev_slots.items() if v is not None and getattr(state, s) != v}
+
+    last_action = action_sequence[-1] if action_sequence else ""
+    action = decide_action(state, {}, changed_slots, user_input, last_action)
 
     if action == "retrieve":
       try:
@@ -52,6 +58,10 @@ def run_agent(turns: Optional[List[str]] = None) -> Optional[dict]:
         results["hotels"] = search_hotels(state)
       except NotImplementedError:
         results = {}
+      # Re-decide with retrieval results so no-results recovery can trigger.
+      action = decide_action(state, results, changed_slots, user_input, last_action)
+
+    action_sequence.append(action)
 
     if action == "confirm":
       try:

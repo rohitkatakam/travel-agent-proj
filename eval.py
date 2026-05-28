@@ -167,6 +167,8 @@ def evaluate_policy(test_dialogues: List[dict]) -> dict:
     history: List[dict] = []
     gold_actions = dialogue.get("gold_actions", [])
     action_idx = 0
+    last_user_msg = ""
+    last_action = ""
 
     for turn in dialogue.get("turns", []):
       speaker = turn.get("speaker", "")
@@ -174,10 +176,12 @@ def evaluate_policy(test_dialogues: List[dict]) -> dict:
       history.append({"role": role, "content": turn.get("text", "")})
 
       if speaker == "user":
+        last_user_msg = turn.get("text", "")
         state = update_state(state, history)
       else:
         if action_idx < len(gold_actions):
-          predicted = decide_action(state)
+          predicted = decide_action(state, last_user_msg=last_user_msg, last_action=last_action)
+          last_action = predicted
           if predicted == gold_actions[action_idx]:
             correct += 1
           total += 1
