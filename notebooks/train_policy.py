@@ -37,6 +37,11 @@ ACTIONS = (
   "relax_constraints",
 )
 
+MULTIWOZ_DATASET_CANDIDATES = (
+  ("multi_woz_v22", {}),
+  ("pfb30/multi_woz_v22", {"data_dir": "v2.2"}),
+)
+
 TARGET_DOMAINS = {"hotel", "restaurant", "attraction", "train"}
 
 PROJECT_SLOTS = (
@@ -225,6 +230,22 @@ def build_examples(dialogues) -> Tuple[List[str], List[str]]:
   return texts, labels
 
 
+def load_multiwoz_dataset():
+  """Load MultiWOZ 2.2 from the first available Hugging Face source."""
+  errors = []
+  for dataset_name, kwargs in MULTIWOZ_DATASET_CANDIDATES:
+    try:
+      print(f"Trying dataset source: {dataset_name}")
+      return load_dataset(dataset_name, trust_remote_code=True, **kwargs)
+    except Exception as exc:
+      errors.append(f"{dataset_name}: {exc}")
+
+  raise RuntimeError(
+    "Could not load MultiWOZ 2.2 from any configured source:\n"
+    + "\n".join(errors)
+  )
+
+
 def train(
   texts: List[str],
   labels: List[str],
@@ -309,7 +330,7 @@ def main() -> None:
   args = parser.parse_args()
 
   print("Loading MultiWOZ 2.2...")
-  dataset = load_dataset("multi_woz_v22", trust_remote_code=True)
+  dataset = load_multiwoz_dataset()
 
   print("Building policy examples...")
   texts, labels = build_examples(dataset["train"])
