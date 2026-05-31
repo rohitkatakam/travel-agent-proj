@@ -33,6 +33,8 @@ def generate_response(
   """
   if action == "ask_slot":
     return _ask_slot(state)
+  if action == "ask_optional":
+    return _ask_optional()
   if action == "retrieve":
     return _present_options(results)
   if action == "relax_constraints":
@@ -67,6 +69,13 @@ def _ask_slot(state: DialogueState) -> str:
     return "It looks like I have everything I need. Let me find some options for you."
   slot = missing[0]
   return _SLOT_QUESTIONS.get(slot, f"Could you tell me your {slot.replace('_', ' ')}?")
+
+
+def _ask_optional() -> str:
+  return (
+    "Do you have a total budget or any preferences, like a pool, vegetarian food, "
+    "outdoor activities, or luxury options? You can also say no."
+  )
 
 
 def _present_options(results: dict) -> str:

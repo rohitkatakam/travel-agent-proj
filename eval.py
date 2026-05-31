@@ -214,7 +214,7 @@ def evaluate_end_to_end(test_dialogues: List[dict]) -> dict:
       if turn.get("speaker") == "user"
     ]
     try:
-      outcome = run_agent(turns=user_turns)
+      outcome = run_agent(turns=user_turns, prompt_optional=False)
     except Exception:
       continue
 

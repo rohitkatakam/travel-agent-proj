@@ -161,7 +161,6 @@ def _feature_text(
   system_history: List[str],
   state: Dict[str, Any],
   previous_action: str,
-  target_action: str,
   n_turns: int = 3,
 ) -> str:
   recent_user = " ".join(user_history[-n_turns:])
@@ -169,7 +168,6 @@ def _feature_text(
   last_user = user_history[-1] if user_history else ""
   return (
     f"previous_action={previous_action or '<START>'} "
-    f"candidate_context_before={target_action} "
     f"state: {_state_feature_text(state)} "
     f"user_intent: {_user_intent_features(last_user)} "
     f"recent_user: {recent_user} "
@@ -209,7 +207,6 @@ def build_examples(dialogues: List[dict]) -> Tuple[List[str], List[str]]:
         system_history=system_history,
         state=state,
         previous_action=previous_action,
-        target_action=action,
       ))
       labels.append(action)
 

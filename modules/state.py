@@ -18,6 +18,7 @@ class DialogueState:
   confirmed_flight: Optional[dict] = None
   confirmed_hotel: Optional[dict] = None
   itinerary: List[dict] = field(default_factory=list)
+  optional_info_prompted: bool = False
 
   # Required slots that must be filled before retrieval can proceed.
   _REQUIRED = ("origin", "destination", "depart_date", "num_travelers")
